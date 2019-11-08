@@ -27,6 +27,4 @@ def connect(ssid, password, trys=3):
     print('network config:', sta_if.ifconfig())
 
 
-# connect("WiFi_IFIR-INFORMATICA", "infarm412")
-# connect("Fibertel WiFi106 2.4GHz", "0043103446")
 esp32.wake_on_touch(True)
