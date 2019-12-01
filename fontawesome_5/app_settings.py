@@ -1,8 +1,7 @@
 import os
 
 from django.conf import settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
-
+from django.templatetags.static import static
 
 def get_prefix():
     return getattr(settings, 'FONTAWESOME_5_PREFIX', 'fa')
