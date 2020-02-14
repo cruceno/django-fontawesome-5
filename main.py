@@ -1,19 +1,34 @@
-
-from machine import I2C, Pin, enable_irq, disable_irq, ADC
+import gc
+from machine import I2C, Pin, ADC
 from esp8266_i2c_lcd import I2cLcd
 from touch import Touchpad
 import time
 import _thread
+from machine import UART
+from serialapi import SerialAPI
+from scales import Scales
 
+uart = UART(2, 9600)
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)
-
+scale = Scales(d_out=23, pd_sck=19)
+api = SerialAPI(uart)
 
 class Delver:
 
-    def __init__(self, i2c):
+    def __init__(self, i2c, scale, api):
         self.lcd = I2cLcd(i2c, 0x27, 2, 16)
-    # web = Web()
-    # web.start_web_thread()
+        self.load_cell = scale
+        self.api = api
+        self.api.add_command('/control/enosc/toggle', self.toggle_enosc)
+        self.api.add_command('/control/midvaso/toggle', self.toggle_midvaso)
+        self.api.add_command('/control/midosc/toggle', self.toggle_midosc)
+        self.api.add_command('/monitor/bterm', self.read_bterm)
+        self.api.add_command('/monitor/vterm', self.read_vterm)
+        self.api.add_command('/control/scale/tare', self.load_cell.tare)
+        self.api.add_command('/monitor/scale/measure', self.read_load_cell)
+
+        # web = Web()
+    #    web.start_web_thread()
         self.vterm = ADC(Pin(34))  # OSC Pin 3
         self.vterm.atten(ADC.ATTN_11DB)
         self.bterm = ADC(Pin(35))  # OSC Pin 9
@@ -36,7 +51,6 @@ class Delver:
         self.stop = True
         self.stable_time = 4
         self.LCD_STATE = True
-
         self.home()
 
     def lcd_on_off(self):
@@ -91,8 +105,19 @@ class Delver:
             time.sleep(.01)
         prom = int(value/n)
         #Sumamos 100 para que de igual que delver
+        #TODO:sacar esos 100 de la suma
         offset = 0 if self.enosc.value() == 1 else 100
-        return prom + offset
+        return prom
+
+    def read_bterm(self):
+        return self.read_adc(self.bterm)
+
+    def read_vterm(self):
+        return self.read_adc(self.vterm)
+
+    def read_load_cell(self, json=False):
+
+        return ', '.join(str(s) for s in self.load_cell.averaged_w())+'\n'
 
     def debug_thread(self):
         self.lcd.clear()
@@ -192,10 +217,21 @@ class Delver:
         self.lcd.putstr('OK')
         self.tp.actions[2] = self.home
 
+delver = Delver(i2c, scale, api)
+delver.load_cell.factor = 1780745.0 / 998
 
-delver = Delver(i2c)
+def run_in_trhead():
+    while True:
+        api.read_command()
+        time.sleep(.2)
+        gc.collect()
 
+mainthread = _thread.start_new_thread(run_in_trhead,())
 
+# scales.tare()
+# val = scales.stable_value()
+# print(val)
+# scales.power_off()
 
 
 

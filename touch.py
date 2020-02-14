@@ -15,11 +15,11 @@ class Touchpad:
 
     def __init__(self, pins):
         for i, pin in enumerate(pins):
-            print("Touchpad {}, pin {}".format(i, pin))
             t = TouchPad(Pin(pin))
             try:
                 t.read()
                 self.touch[i] = t
+                print("Touchpad {}, pin {}".format(i, pin))
                 self.threshold[i] = []
                 self.actions[i] = self.do_nothing
             except Exception as e:
@@ -34,7 +34,6 @@ class Touchpad:
         return tp_thread
 
     def calibrate(self):
-
         for x in range(12):
             for i in range(len(self.touch)):
                 self.threshold[i].append(self.touch[i].read())
@@ -47,7 +46,6 @@ class Touchpad:
 
     def _sense_touch(self):
         while not self.stop:
-
             for i in range(len(self.touch)):
                 capacitance = self.touch[i].read()
                 cap_ratio = capacitance / self.threshold[i]
@@ -60,4 +58,4 @@ class Touchpad:
                           self.threshold[i] - capacitance, cap_ratio * 100))
                     self.actions[i]()
 
-            sleep(.1)
+            sleep(.2)
