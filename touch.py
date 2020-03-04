@@ -47,15 +47,19 @@ class Touchpad:
     def _sense_touch(self):
         while not self.stop:
             for i in range(len(self.touch)):
-                capacitance = self.touch[i].read()
-                cap_ratio = capacitance / self.threshold[i]
-                # Check if current TouchPad is pressed
-                if i < len(self.touch) and self.min_ratio < cap_ratio < self.max_ratio:
+                try:
+                    capacitance = self.touch[i].read()
+                    cap_ratio = capacitance / self.threshold[i]
+                    # Check if current TouchPad is pressed
+                    if i < len(self.touch) and self.min_ratio < cap_ratio < self.max_ratio:
+                        sleep(self.debounce)  # Debounce button press
+                        print('Pressed {0}: {1}, Diff: {2}, Ratio: {3}%.'.format(i,
+                                                                                 capacitance,
+                                                                                 self.threshold[i] - capacitance,
+                                                                                 cap_ratio * 100))
+                        self.actions[i]()
 
-                    sleep(self.debounce)  # Debounce button press
-                    print('Pressed {0}: {1}, Diff: {2}, Ratio: {3}%.'.format(
-                          i, capacitance,
-                          self.threshold[i] - capacitance, cap_ratio * 100))
-                    self.actions[i]()
+                except ValueError as e:
+                    print("Algo salio mal...{}".format(str(e)))
 
             sleep(.2)

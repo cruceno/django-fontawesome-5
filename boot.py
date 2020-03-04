@@ -1,6 +1,7 @@
 import network
 import utime
 import esp, esp32
+from machine import UART
 esp.osdebug(None)
 
 def connect(ssid, password, trys=3):
@@ -21,4 +22,4 @@ def connect(ssid, password, trys=3):
 
     print('network config:', sta_if.ifconfig())
 
-# esp32.wake_on_touch(True)
+esp32.wake_on_touch(True)
