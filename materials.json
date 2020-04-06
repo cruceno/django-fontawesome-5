@@ -1,0 +1,15 @@
+{
+  "materials":[
+    {
+      "code": "xxxxxxxx",
+      "name": "Dummy Material",
+      "tcoef": 80,
+      "hum_rf": [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,  0,  0],
+      "compact_coef": 123,
+      "slope" : 30,
+      "y0": 116,
+      "updated": "dd/mm/yyy hh:mm:ss"
+    }
+
+  ]
+}

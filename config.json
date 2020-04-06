@@ -1,0 +1,58 @@
+{
+  "serialNumber": "000000",
+  "model": "ESPDELV",
+  "firmware_version": 1.0,
+  "debug": false,
+
+  "rf": {
+    "calibration": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+  },
+
+  "load_cell": {
+    "model": "A",
+    "max_load": 3000,
+    "tare": 0,
+    "calibration_factor": 1,
+    "default_samples": 10,
+    "delay_measure": 5,
+    "max_std_deviation": 1
+  },
+
+  "vterm":{
+    "coef_a": 5776,
+    "coef_b": -0.0279,
+    "default_samples": 10,
+    "delay measure": 4,
+    "updated": "dd/mm/yyyy hh:mm:ss"
+  },
+
+  "bterm": {
+    "coef_a": 5776,
+    "coef_b": -0.0279,
+    "default_samples": 10,
+    "delay measure": 4,
+    "updated": "dd/mm/yyyy hh:mm:ss"
+  },
+
+  "display": {
+    "time_to_off":300
+  }
+}
+
