@@ -20,18 +20,18 @@ class Scales(HX711):
 
     def tare(self):
         self._offset = 0
-        self._offset = self.measure()[0]
+        self._offset = self.averaged()[0]
 
     def raw_value(self):
         return self.read() - self._offset
 
-    def get_samples(self, n=25, delay=200, raw=True):
+    def get_samples(self, n=25, delay=5):
         samples = []
-        for _ in range(n + 1):
-            if raw:
-                samples.append(self.raw_value())
-            else:
-                samples.append(self.raw_value()/self._factor)
+        for i in range(n + 1):
+            sample =self.raw_value()
+            samples.append(sample)
+            acum = (sample - samples[i-1])/n + samples[i-1]
+            samples[i] = acum
             sleep_us(delay)
         return samples
 
@@ -49,13 +49,3 @@ class Scales(HX711):
         xbar = mean(data)
         return [xbar, stdev(data, xbar)]
 
-    def averaged_w(self, samples=10):
-        data = self.get_samples(samples, raw=False)
-        xbar = mean(data)
-        return [xbar, stdev(data, xbar)]
-
-    def measure(self, samples=25, raw=True):
-        if raw:
-            return self.averaged(samples)
-        else:
-            return self.averaged_w(samples)
