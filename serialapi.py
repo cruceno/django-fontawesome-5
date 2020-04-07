@@ -1,23 +1,35 @@
-import _thread
 import utime
+import ujson
 
-class SerialAPI():
+class SerialAPI(object):
 
     sending = False
     led = None
     _COMMANDS = {}
+    __RESPONSES = {
+        200: {"result": 200, "msg": "OK"},
+        400: {"result": 400, "msg": "No se reconoce la instruccion enviada"},
+        500: {"result": 500, "msg": "Parte del hardware no está funcionando como debe y el equipo debe \
+    ser revisado por personal técnico calificado"},
+        304: {"result": 304, "msg": "No se han realizado cambios todo actualizado"}
+    }
 
     def __init__(self, uart):
-
+        # DOCME: Documentar seleccion de UART
         self.uart = uart
         self.sending = False
-        # self.start_trhead()
 
     def write_response(self, response):
 
         self.sending = True
-        self.uart.write(response.encode('utf8'))
-        self.sending = False
+        try:
+            self.uart.write(response.encode('utf8'))
+            self.sending = False
+            print("Ok")
+
+        except Exception as e:
+            self.sending = False
+            print("Error: {}".format(e))
 
     def read_command(self):
         if not self.sending:
@@ -28,22 +40,56 @@ class SerialAPI():
                 self.exec_cmd(cmd)
 
     def exec_cmd(self, cmd):
+        #Separa el comando de los parametros
         cmd = cmd.decode().strip('\n').split(' ')
-        try:
-            if len(cmd) > 1:
-                response = self._COMMANDS[cmd[0]](*cmd[1:])
-                # print(response)
-                self.write_response(str(response))
-                self.write_response('\n')
-            else:
-                # self.write_response('Ejecutando comando: {}'.format(cmd[0]))
-                response = self._COMMANDS[cmd[0]]()
-                # print(response)
-                self.write_response(str(response))
-                self.write_response('\n')
+        action = cmd[0]
+        if len(cmd) >= 1:
+            action = action.split('/')
+            json_str = " ".join(cmd[1:-1])
+            if len(action) == 2:
+                # Instrucciones sin method
+                params = None
+                try:
+                    try:
+                        # TODO: Que pasa si no recibe un parametro ?
+                        params = ujson.loads(json_str)
+                    except Exception as e:
+                        self.response_code(400, str(e))
 
-        except Exception as e:
-            self.write_response(u"Comando no válido: {}\n".format(str(e)))
+                    response = self._COMMANDS[cmd[0]](params)
+                    self.write_response(str(response)+"\n")
+
+                except Exception as e:
+                    self.response_code(500, str(e))
+
+            elif len(action) == 3:
+                #Instrucciones que incluyen method
+                method = action[1]
+                params = None
+                try:
+                    try:
+                        # TODO: Que pasa si no recibe un parametro ?
+                        params = ujson.loads(json_str)
+                    except Exception as e:
+                        self.response_code(400, str(e))
+
+                    response = self._COMMANDS[cmd[0]](method, params)
+                    self.write_response(ujson.dumps(response)+"\n")
+
+                except Exception as e:
+                    self.response_code(500, str(e))
+
+            else:
+                return self.response_code(400)
+
+        else:
+            return self.response_code(400)
 
     def add_command(self, name, cmd):
         self._COMMANDS[name] = cmd
+
+    def response_code(self, code, msg=None):
+        response = self.__RESPONSES[code]
+        if msg is not None:
+            response['msg'] = str(msg)
+        return self.write_response(ujson.dumps(response))
