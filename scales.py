@@ -1,5 +1,5 @@
 from hx711 import HX711
-from utime import sleep, sleep_us
+from utime import sleep_us
 from statistics import mean, stdev
 
 
@@ -25,10 +25,10 @@ class Scales(HX711):
     def raw_value(self):
         return self.read() - self._offset
 
-    def get_samples(self, n=25, delay=5):
+    def get_samples(self, n, delay):
         samples = []
         for i in range(n + 1):
-            sample =self.raw_value()
+            sample = self.raw_value()
             samples.append(sample)
             acum = (sample - samples[i-1])/n + samples[i-1]
             samples[i] = acum
@@ -44,8 +44,8 @@ class Scales(HX711):
     def get_factor(self):
         return self._factor
 
-    def averaged(self, samples=10):
-        data = self.get_samples(samples)
+    def get_value(self, samples=10, delay=10):
+        data = self.get_samples(samples, delay)
         xbar = mean(data)
         return [xbar, stdev(data, xbar)]
 
