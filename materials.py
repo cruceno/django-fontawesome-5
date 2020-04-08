@@ -22,7 +22,7 @@ class Material(object):
 
 
 def material_from_json(json):
-    #TODO: Convertir material a objeto json
+    #TODO: Convertir objeto json s , material
     pass
 
 
