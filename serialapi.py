@@ -25,7 +25,7 @@ class SerialAPI(object):
         try:
             self.uart.write(response.encode('utf8'))
             self.sending = False
-            print("Ok")
+            # print("Ok")
 
         except Exception as e:
             self.sending = False
@@ -39,49 +39,48 @@ class SerialAPI(object):
                 cmd = self.uart.readline()
                 self.exec_cmd(cmd)
 
-    def exec_cmd(self, cmd):
+    def exec_cmd(self, incoming):
         #Separa el comando de los parametros
-        cmd = cmd.decode().strip('\n').split(' ')
-        action = cmd[0]
+
+        cmd = incoming.decode().strip('\n')
+        # print(cmd)
+        action = cmd.split(' ')[0]
         if len(cmd) >= 1:
             action = action.split('/')
-            json_str = " ".join(cmd[1:-1])
+            json_str = " ".join(cmd.split(' ')[1:])
             if len(action) == 2:
                 # Instrucciones sin method
                 params = None
                 try:
                     try:
-                        # TODO: Que pasa si no recibe un parametro ?
-                        params = ujson.loads(json_str)
+                        if json_str:
+                            params = ujson.loads(json_str)
                     except Exception as e:
                         self.response_code(400, str(e))
 
-                    response = self._COMMANDS[cmd[0]](params)
+                    response = self._COMMANDS[cmd.split(' ')[0]](params)
                     self.write_response(str(response)+"\n")
-
                 except Exception as e:
-                    self.response_code(500, str(e))
+                    self.response_code(500, "Error al ejecutar el comando: {}".format(str(e)))
 
             elif len(action) == 3:
                 #Instrucciones que incluyen method
                 method = action[1]
                 params = None
                 try:
-                    try:
-                        # TODO: Que pasa si no recibe un parametro ?
-                        params = ujson.loads(json_str)
-                    except Exception as e:
-                        self.response_code(400, str(e))
+                    if method == 'post':
+                        try:
+                            params = ujson.loads(json_str)
+                        except Exception as e:
+                            return self.response_code(400, str(e))
 
-                    response = self._COMMANDS[cmd[0]](method, params)
+                    response = self._COMMANDS[cmd.split(' ')[0]](method, params)
                     self.write_response(ujson.dumps(response)+"\n")
 
                 except Exception as e:
-                    self.response_code(500, str(e))
-
+                    self.response_code(500, "Error al ejecutar el comando: {}".format(str(e)))
             else:
                 return self.response_code(400)
-
         else:
             return self.response_code(400)
 
@@ -92,4 +91,4 @@ class SerialAPI(object):
         response = self.__RESPONSES[code]
         if msg is not None:
             response['msg'] = str(msg)
-        return self.write_response(ujson.dumps(response))
+        return self.write_response(ujson.dumps(response)+'\n')
