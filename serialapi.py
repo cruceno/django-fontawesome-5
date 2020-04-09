@@ -1,4 +1,3 @@
-import utime
 import ujson
 
 class SerialAPI(object):
