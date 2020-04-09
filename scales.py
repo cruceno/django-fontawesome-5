@@ -20,7 +20,7 @@ class Scales(HX711):
 
     def tare(self):
         self._offset = 0
-        self._offset = self.averaged()[0]
+        self._offset = self.get_value()[0]
 
     def raw_value(self):
         return self.read() - self._offset
