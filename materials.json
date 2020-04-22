@@ -1,7 +1,7 @@
 {
-  "mateials":[
+  "materials":[
     {
-      "code":0,
+      "code":"000",
       "compact_coef":123,
       "hum_rf":[
         32,
@@ -40,10 +40,11 @@
       "name":"MATERIAL NUEVO",
       "slope":30,
       "tcoef":80,
+      "updated":"21/04/2020 21:59:35",
       "y0":116
     },
     {
-      "code":1,
+      "code":"001",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -82,10 +83,11 @@
       "name":"ACHICORIA FORRAJ",
       "slope":60,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":46
     },
     {
-      "code":2,
+      "code":"002",
       "compact_coef":124,
       "hum_rf":[
         43,
@@ -124,10 +126,11 @@
       "name":"AFRECH. DE TRIGO",
       "slope":42,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":50
     },
     {
-      "code":3,
+      "code":"003",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -166,10 +169,11 @@
       "name":"AFRECHO DE MAIZ",
       "slope":56,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":57
     },
     {
-      "code":4,
+      "code":"004",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -208,10 +212,11 @@
       "name":"AGROPIRO",
       "slope":26,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":14
     },
     {
-      "code":5,
+      "code":"005",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -250,10 +255,11 @@
       "name":"ALFALFA",
       "slope":103,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":86
     },
     {
-      "code":6,
+      "code":"006",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -292,10 +298,11 @@
       "name":"ALFALFA PEL.50",
       "slope":106,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":135
     },
     {
-      "code":7,
+      "code":"007",
       "compact_coef":128,
       "hum_rf":[
         0,
@@ -334,10 +341,11 @@
       "name":"ALGODAO S/ PLUMA",
       "slope":78,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":80
     },
     {
-      "code":8,
+      "code":"008",
       "compact_coef":121,
       "hum_rf":[
         4,
@@ -376,10 +384,11 @@
       "name":"ALGODON SEMILLA",
       "slope":25,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":9
     },
     {
-      "code":9,
+      "code":"009",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -418,10 +427,11 @@
       "name":"ALIM BAL. GARAY",
       "slope":53,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":15
     },
     {
-      "code":10,
+      "code":"010",
       "compact_coef":153,
       "hum_rf":[
         0,
@@ -460,10 +470,11 @@
       "name":"ALIM. BAL. CHAJA",
       "slope":62,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":62
     },
     {
-      "code":11,
+      "code":"011",
       "compact_coef":124,
       "hum_rf":[
         24,
@@ -502,10 +513,11 @@
       "name":"ALMENDRA",
       "slope":72,
       "tcoef":105,
+      "updated":"21/04/2020 21:59:35",
       "y0":79
     },
     {
-      "code":12,
+      "code":"012",
       "compact_coef":131,
       "hum_rf":[
         0,
@@ -544,10 +556,11 @@
       "name":"ALMENDRA CHILENA",
       "slope":74,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":31
     },
     {
-      "code":13,
+      "code":"013",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -586,10 +599,11 @@
       "name":"ALMIDON",
       "slope":65,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":54
     },
     {
-      "code":14,
+      "code":"014",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -628,10 +642,11 @@
       "name":"ALPISTE",
       "slope":97,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":92
     },
     {
-      "code":15,
+      "code":"015",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -670,10 +685,11 @@
       "name":"AMARANTO",
       "slope":109,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":133
     },
     {
-      "code":16,
+      "code":"016",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -712,10 +728,11 @@
       "name":"AMENDOIM CRU",
       "slope":80,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":36
     },
     {
-      "code":17,
+      "code":"017",
       "compact_coef":137,
       "hum_rf":[
         0,
@@ -754,10 +771,11 @@
       "name":"AMENDOIM GRANUL.",
       "slope":69,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":32
     },
     {
-      "code":18,
+      "code":"018",
       "compact_coef":130,
       "hum_rf":[
         0,
@@ -796,10 +814,11 @@
       "name":"AMENDOIM TORRADO",
       "slope":74,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":26
     },
     {
-      "code":19,
+      "code":"019",
       "compact_coef":127,
       "hum_rf":[
         0,
@@ -838,10 +857,11 @@
       "name":"ARGILA",
       "slope":108,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":174
     },
     {
-      "code":20,
+      "code":"020",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -880,10 +900,11 @@
       "name":"ARROZ BENEFIC.",
       "slope":79,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":46
     },
     {
-      "code":21,
+      "code":"021",
       "compact_coef":128,
       "hum_rf":[
         30,
@@ -922,10 +943,11 @@
       "name":"ARROZ C/CAS PARB",
       "slope":71,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":22,
+      "code":"022",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -964,10 +986,11 @@
       "name":"ARROZ CON CASC.",
       "slope":73,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":70
     },
     {
-      "code":23,
+      "code":"023",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1006,10 +1029,11 @@
       "name":"ARROZ FORT/YER",
       "slope":118,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":154
     },
     {
-      "code":24,
+      "code":"024",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1048,10 +1072,11 @@
       "name":"ARROZ FORTUNA",
       "slope":118,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":154
     },
     {
-      "code":25,
+      "code":"025",
       "compact_coef":122,
       "hum_rf":[
         18,
@@ -1090,10 +1115,11 @@
       "name":"ARROZ HUMEDO",
       "slope":79,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":46
     },
     {
-      "code":26,
+      "code":"026",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1132,10 +1158,11 @@
       "name":"ARROZ PUL. 0000",
       "slope":108,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":124
     },
     {
-      "code":27,
+      "code":"027",
       "compact_coef":128,
       "hum_rf":[
         37,
@@ -1174,10 +1201,11 @@
       "name":"ARROZ S/CAS PARB",
       "slope":100,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":156
     },
     {
-      "code":28,
+      "code":"028",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1216,10 +1244,11 @@
       "name":"ARVEJA",
       "slope":103,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":102
     },
     {
-      "code":29,
+      "code":"029",
       "compact_coef":126,
       "hum_rf":[
         0,
@@ -1258,10 +1287,11 @@
       "name":"AVENA",
       "slope":80,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":40
     },
     {
-      "code":30,
+      "code":"030",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1300,10 +1330,11 @@
       "name":"AVENA STRIGOSA",
       "slope":57,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":35
     },
     {
-      "code":31,
+      "code":"031",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1342,10 +1373,11 @@
       "name":"BALANCEADO ABSA",
       "slope":53,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":15
     },
     {
-      "code":32,
+      "code":"032",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1384,10 +1416,11 @@
       "name":"BALANCEADO NE",
       "slope":72,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":86
     },
     {
-      "code":33,
+      "code":"033",
       "compact_coef":124,
       "hum_rf":[
         44,
@@ -1426,10 +1459,11 @@
       "name":"BALANCEADO NOV",
       "slope":80,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":121
     },
     {
-      "code":34,
+      "code":"034",
       "compact_coef":126,
       "hum_rf":[
         9,
@@ -1468,10 +1502,11 @@
       "name":"BRACH. RUZIZIEN.",
       "slope":80,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":63
     },
     {
-      "code":35,
+      "code":"035",
       "compact_coef":126,
       "hum_rf":[
         1,
@@ -1510,10 +1545,11 @@
       "name":"BRACH. UMIDICOLA",
       "slope":80,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":63
     },
     {
-      "code":36,
+      "code":"036",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1552,10 +1588,11 @@
       "name":"BRACHIARIA",
       "slope":71,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":76
     },
     {
-      "code":37,
+      "code":"037",
       "compact_coef":126,
       "hum_rf":[
         11,
@@ -1594,10 +1631,11 @@
       "name":"BRACHIARIA MG5",
       "slope":80,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":63
     },
     {
-      "code":38,
+      "code":"038",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1636,10 +1674,11 @@
       "name":"BURLANDA DE MAIZ",
       "slope":52,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":30
     },
     {
-      "code":39,
+      "code":"039",
       "compact_coef":125,
       "hum_rf":[
         0,
@@ -1678,10 +1717,11 @@
       "name":"CACAO",
       "slope":59,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":59
     },
     {
-      "code":40,
+      "code":"040",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1720,10 +1760,11 @@
       "name":"CAFE 103 PC",
       "slope":85,
       "tcoef":150,
+      "updated":"21/04/2020 21:59:35",
       "y0":92
     },
     {
-      "code":41,
+      "code":"041",
       "compact_coef":128,
       "hum_rf":[
         9,
@@ -1762,10 +1803,11 @@
       "name":"CAFE 200GR 103PC",
       "slope":50,
       "tcoef":150,
+      "updated":"21/04/2020 21:59:35",
       "y0":28
     },
     {
-      "code":42,
+      "code":"042",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1804,10 +1846,11 @@
       "name":"CAFE ARABICA",
       "slope":89,
       "tcoef":150,
+      "updated":"21/04/2020 21:59:35",
       "y0":89
     },
     {
-      "code":43,
+      "code":"043",
       "compact_coef":129,
       "hum_rf":[
         50,
@@ -1846,10 +1889,11 @@
       "name":"CAFE EN GRANO",
       "slope":49,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":23
     },
     {
-      "code":44,
+      "code":"044",
       "compact_coef":125,
       "hum_rf":[
         78,
@@ -1888,10 +1932,11 @@
       "name":"CAFE G 200 GR",
       "slope":50,
       "tcoef":150,
+      "updated":"21/04/2020 21:59:35",
       "y0":50
     },
     {
-      "code":45,
+      "code":"045",
       "compact_coef":127,
       "hum_rf":[
         74,
@@ -1930,10 +1975,11 @@
       "name":"CAFE ROBUSTA",
       "slope":77,
       "tcoef":150,
+      "updated":"21/04/2020 21:59:35",
       "y0":91
     },
     {
-      "code":46,
+      "code":"046",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -1972,10 +2018,11 @@
       "name":"CARTAMO",
       "slope":63,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":57
     },
     {
-      "code":47,
+      "code":"047",
       "compact_coef":124,
       "hum_rf":[
         42,
@@ -2014,10 +2061,11 @@
       "name":"CASCARA DE ARROZ",
       "slope":13,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":11
     },
     {
-      "code":48,
+      "code":"048",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2056,10 +2104,11 @@
       "name":"CASCARA DE LIMON",
       "slope":40,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":29
     },
     {
-      "code":49,
+      "code":"049",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2098,10 +2147,11 @@
       "name":"CASTANHA DO PARA",
       "slope":75,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":34
     },
     {
-      "code":50,
+      "code":"050",
       "compact_coef":116,
       "hum_rf":[
         0,
@@ -2140,10 +2190,11 @@
       "name":"CASTANHA PC",
       "slope":66,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":3
     },
     {
-      "code":51,
+      "code":"051",
       "compact_coef":154,
       "hum_rf":[
         0,
@@ -2182,10 +2233,11 @@
       "name":"CASTANHA SLW",
       "slope":60,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":11
     },
     {
-      "code":52,
+      "code":"052",
       "compact_coef":131,
       "hum_rf":[
         0,
@@ -2224,10 +2276,11 @@
       "name":"CASTANHA SSP",
       "slope":72,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":14
     },
     {
-      "code":53,
+      "code":"053",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -2266,10 +2319,11 @@
       "name":"CEBADA CERVEC.",
       "slope":90,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":68
     },
     {
-      "code":54,
+      "code":"054",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -2308,10 +2362,11 @@
       "name":"CEBADA FORRAJ.",
       "slope":85,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":70
     },
     {
-      "code":55,
+      "code":"055",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2350,10 +2405,11 @@
       "name":"CEBADILLA",
       "slope":53,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":48
     },
     {
-      "code":56,
+      "code":"056",
       "compact_coef":124,
       "hum_rf":[
         26,
@@ -2392,10 +2448,11 @@
       "name":"CEBADILLA SD",
       "slope":20,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":16
     },
     {
-      "code":57,
+      "code":"057",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2434,10 +2491,11 @@
       "name":"CENTENO",
       "slope":89,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":117
     },
     {
-      "code":58,
+      "code":"058",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2476,10 +2534,11 @@
       "name":"CHIA",
       "slope":90,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":91
     },
     {
-      "code":59,
+      "code":"059",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2518,10 +2577,11 @@
       "name":"COLZA",
       "slope":82,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":92
     },
     {
-      "code":60,
+      "code":"060",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2560,10 +2620,11 @@
       "name":"CORIANDRO",
       "slope":43,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":28
     },
     {
-      "code":61,
+      "code":"061",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2602,10 +2663,11 @@
       "name":"ERAGROSTIS",
       "slope":110,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":132
     },
     {
-      "code":62,
+      "code":"062",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2644,10 +2706,11 @@
       "name":"EXP. GIRASOL",
       "slope":57,
       "tcoef":86,
+      "updated":"21/04/2020 21:59:35",
       "y0":24
     },
     {
-      "code":63,
+      "code":"063",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2686,10 +2749,11 @@
       "name":"EXP. SOJA",
       "slope":72,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":60
     },
     {
-      "code":64,
+      "code":"064",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2728,10 +2792,11 @@
       "name":"EXTRUSADO SOJA",
       "slope":72,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":60
     },
     {
-      "code":65,
+      "code":"065",
       "compact_coef":135,
       "hum_rf":[
         0,
@@ -2770,10 +2835,11 @@
       "name":"FECULA MANDIOCA",
       "slope":87,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":84
     },
     {
-      "code":66,
+      "code":"066",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2812,10 +2878,11 @@
       "name":"FESTUCA",
       "slope":43,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":39
     },
     {
-      "code":67,
+      "code":"067",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2854,10 +2921,11 @@
       "name":"FIDEOS SECOS",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":68,
+      "code":"068",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -2896,10 +2964,11 @@
       "name":"GALLETA QUINOA",
       "slope":71,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":43
     },
     {
-      "code":69,
+      "code":"069",
       "compact_coef":124,
       "hum_rf":[
         24,
@@ -2938,10 +3007,11 @@
       "name":"GARBANZO",
       "slope":93,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":125
     },
     {
-      "code":70,
+      "code":"070",
       "compact_coef":124,
       "hum_rf":[
         36,
@@ -2980,10 +3050,11 @@
       "name":"GATTON PANIC",
       "slope":39,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":59
     },
     {
-      "code":71,
+      "code":"071",
       "compact_coef":129,
       "hum_rf":[
         0,
@@ -3022,10 +3093,11 @@
       "name":"GERMEN DE MAIZ",
       "slope":62,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":18
     },
     {
-      "code":72,
+      "code":"072",
       "compact_coef":124,
       "hum_rf":[
         34,
@@ -3064,10 +3136,11 @@
       "name":"GIRASOL BAKERY",
       "slope":77,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":108
     },
     {
-      "code":73,
+      "code":"073",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3106,10 +3179,11 @@
       "name":"GIRASOL CONFIT.",
       "slope":39,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":53
     },
     {
-      "code":74,
+      "code":"074",
       "compact_coef":123,
       "hum_rf":[
         43,
@@ -3148,10 +3222,11 @@
       "name":"GIRASOL GUAYAC.",
       "slope":54,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":49
     },
     {
-      "code":75,
+      "code":"075",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3190,10 +3265,11 @@
       "name":"GIRASOL NEGRO",
       "slope":43,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":59
     },
     {
-      "code":76,
+      "code":"076",
       "compact_coef":123,
       "hum_rf":[
         33,
@@ -3232,10 +3308,11 @@
       "name":"GIRASOL RUSO",
       "slope":54,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":49
     },
     {
-      "code":77,
+      "code":"077",
       "compact_coef":124,
       "hum_rf":[
         29,
@@ -3274,10 +3351,11 @@
       "name":"GIRASOL S/CASCA",
       "slope":77,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":108
     },
     {
-      "code":78,
+      "code":"078",
       "compact_coef":124,
       "hum_rf":[
         39,
@@ -3316,10 +3394,11 @@
       "name":"GIRASOL TOPQUA",
       "slope":77,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":108
     },
     {
-      "code":79,
+      "code":"079",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3358,10 +3437,11 @@
       "name":"GIRASOL VALIA73",
       "slope":30,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":14
     },
     {
-      "code":80,
+      "code":"080",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3400,10 +3480,11 @@
       "name":"GOLOCAN",
       "slope":71,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":49
     },
     {
-      "code":81,
+      "code":"081",
       "compact_coef":124,
       "hum_rf":[
         72,
@@ -3442,10 +3523,11 @@
       "name":"GRAMA RHODES",
       "slope":13,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":16
     },
     {
-      "code":82,
+      "code":"082",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3484,10 +3566,11 @@
       "name":"GUAR",
       "slope":106,
       "tcoef":136,
+      "updated":"21/04/2020 21:59:35",
       "y0":117
     },
     {
-      "code":83,
+      "code":"083",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3526,10 +3609,11 @@
       "name":"GUISEROS 555",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":84,
+      "code":"084",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3568,10 +3652,11 @@
       "name":"GUISEROS VOLCAN",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":85,
+      "code":"085",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3610,10 +3695,11 @@
       "name":"HAR. DE CASTANIA",
       "slope":60,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":26
     },
     {
-      "code":86,
+      "code":"086",
       "compact_coef":118,
       "hum_rf":[
         0,
@@ -3652,10 +3738,11 @@
       "name":"HAR. DE PLUMAS",
       "slope":57,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":33
     },
     {
-      "code":87,
+      "code":"087",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -3694,10 +3781,11 @@
       "name":"HAR. DE TRIGO",
       "slope":66,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":77
     },
     {
-      "code":88,
+      "code":"088",
       "compact_coef":126,
       "hum_rf":[
         15,
@@ -3736,10 +3824,11 @@
       "name":"HAR. DE TRIGO B",
       "slope":47,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":46
     },
     {
-      "code":89,
+      "code":"089",
       "compact_coef":129,
       "hum_rf":[
         0,
@@ -3778,10 +3867,11 @@
       "name":"HAR. PESCADO BR",
       "slope":56,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":33
     },
     {
-      "code":90,
+      "code":"090",
       "compact_coef":121,
       "hum_rf":[
         0,
@@ -3820,10 +3910,11 @@
       "name":"HAR. PESCADO PE",
       "slope":62,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":57
     },
     {
-      "code":91,
+      "code":"091",
       "compact_coef":123,
       "hum_rf":[
         57,
@@ -3862,10 +3953,11 @@
       "name":"HAR. SCRAP SAC",
       "slope":66,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":64
     },
     {
-      "code":92,
+      "code":"092",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3904,10 +3996,11 @@
       "name":"HAR. SOJA APA",
       "slope":52,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":14
     },
     {
-      "code":93,
+      "code":"093",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3946,10 +4039,11 @@
       "name":"HAR. VISC. POLLO",
       "slope":61,
       "tcoef":123,
+      "updated":"21/04/2020 21:59:35",
       "y0":22
     },
     {
-      "code":94,
+      "code":"094",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -3988,10 +4082,11 @@
       "name":"HARINA DE ARROZ",
       "slope":91,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":98
     },
     {
-      "code":95,
+      "code":"095",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -4030,10 +4125,11 @@
       "name":"HARINA DE MAIZ",
       "slope":83,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":88
     },
     {
-      "code":96,
+      "code":"096",
       "compact_coef":119,
       "hum_rf":[
         0,
@@ -4072,10 +4168,11 @@
       "name":"HARINA DE SANGRE",
       "slope":52,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":1
     },
     {
-      "code":97,
+      "code":"097",
       "compact_coef":124,
       "hum_rf":[
         43,
@@ -4114,10 +4211,11 @@
       "name":"HARINA DE SOJA",
       "slope":56,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":78
     },
     {
-      "code":98,
+      "code":"098",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -4156,10 +4254,11 @@
       "name":"HARINA DE SORGO",
       "slope":66,
       "tcoef":102,
+      "updated":"21/04/2020 21:59:35",
       "y0":77
     },
     {
-      "code":99,
+      "code":"099",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -4198,10 +4297,11 @@
       "name":"HARINA PAITA",
       "slope":33,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":59
     },
     {
-      "code":100,
+      "code":"100",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -4240,10 +4340,11 @@
       "name":"HEMOGLOBINA BOV.",
       "slope":46,
       "tcoef":126,
+      "updated":"21/04/2020 21:59:35",
       "y0":17
     },
     {
-      "code":101,
+      "code":"101",
       "compact_coef":128,
       "hum_rf":[
         0,
@@ -4282,10 +4383,11 @@
       "name":"JOJOBA",
       "slope":76,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":27
     },
     {
-      "code":102,
+      "code":"102",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -4324,10 +4426,11 @@
       "name":"LENTEJA",
       "slope":93,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":104
     },
     {
-      "code":103,
+      "code":"103",
       "compact_coef":124,
       "hum_rf":[
         29,
@@ -4366,10 +4469,11 @@
       "name":"LINAZA",
       "slope":71,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":87
     },
     {
-      "code":104,
+      "code":"104",
       "compact_coef":125,
       "hum_rf":[
         26,
@@ -4408,10 +4512,11 @@
       "name":"LINO",
       "slope":85,
       "tcoef":123,
+      "updated":"21/04/2020 21:59:35",
       "y0":104
     },
     {
-      "code":105,
+      "code":"105",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -4450,10 +4555,11 @@
       "name":"LOTUS",
       "slope":107,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":132
     },
     {
-      "code":106,
+      "code":"106",
       "compact_coef":120,
       "hum_rf":[
         0,
@@ -4492,10 +4598,11 @@
       "name":"MAIZ",
       "slope":75,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":47
     },
     {
-      "code":107,
+      "code":"107",
       "compact_coef":159,
       "hum_rf":[
         0,
@@ -4534,10 +4641,11 @@
       "name":"MAIZ 280 gr.>21%",
       "slope":69,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":194
     },
     {
-      "code":108,
+      "code":"108",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -4576,10 +4684,11 @@
       "name":"MAIZ 300 gr.",
       "slope":74,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":48
     },
     {
-      "code":109,
+      "code":"109",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -4618,10 +4727,11 @@
       "name":"MAIZ 300 gr.<21%",
       "slope":74,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":48
     },
     {
-      "code":110,
+      "code":"110",
       "compact_coef":120,
       "hum_rf":[
         0,
@@ -4660,10 +4770,11 @@
       "name":"MAIZ ANTERIOR",
       "slope":100,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":161
     },
     {
-      "code":111,
+      "code":"111",
       "compact_coef":126,
       "hum_rf":[
         0,
@@ -4702,10 +4813,11 @@
       "name":"MAIZ BR REV.2012",
       "slope":99,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":132
     },
     {
-      "code":112,
+      "code":"112",
       "compact_coef":137,
       "hum_rf":[
         140,
@@ -4744,10 +4856,11 @@
       "name":"MAIZ ENSILAJE",
       "slope":65,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":255
     },
     {
-      "code":113,
+      "code":"113",
       "compact_coef":159,
       "hum_rf":[
         0,
@@ -4786,10 +4899,11 @@
       "name":"MAIZ ESP. DOW V4",
       "slope":69,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":194
     },
     {
-      "code":114,
+      "code":"114",
       "compact_coef":159,
       "hum_rf":[
         0,
@@ -4828,10 +4942,11 @@
       "name":"MAIZ HUMEDO NIDE",
       "slope":69,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":194
     },
     {
-      "code":115,
+      "code":"115",
       "compact_coef":124,
       "hum_rf":[
         54,
@@ -4870,10 +4985,11 @@
       "name":"MAIZ MOLIDO",
       "slope":73,
       "tcoef":113,
+      "updated":"21/04/2020 21:59:35",
       "y0":129
     },
     {
-      "code":116,
+      "code":"116",
       "compact_coef":159,
       "hum_rf":[
         0,
@@ -4912,10 +5028,11 @@
       "name":"MAIZ MON",
       "slope":69,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":194
     },
     {
-      "code":117,
+      "code":"117",
       "compact_coef":120,
       "hum_rf":[
         0,
@@ -4954,10 +5071,11 @@
       "name":"MAIZ P",
       "slope":75,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":47
     },
     {
-      "code":118,
+      "code":"118",
       "compact_coef":171,
       "hum_rf":[
         0,
@@ -4996,10 +5114,11 @@
       "name":"MAIZ PISIN 300gr",
       "slope":75,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":83
     },
     {
-      "code":119,
+      "code":"119",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5038,10 +5157,11 @@
       "name":"MAIZ PISIN. GAC",
       "slope":115,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":139
     },
     {
-      "code":120,
+      "code":"120",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5080,10 +5200,11 @@
       "name":"MAIZ PISINGALLO",
       "slope":115,
       "tcoef":160,
+      "updated":"21/04/2020 21:59:35",
       "y0":139
     },
     {
-      "code":121,
+      "code":"121",
       "compact_coef":128,
       "hum_rf":[
         7,
@@ -5122,10 +5243,11 @@
       "name":"MAMONA CON CASC.",
       "slope":28,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":9
     },
     {
-      "code":122,
+      "code":"122",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5164,10 +5286,11 @@
       "name":"MAMONA NEGRA",
       "slope":60,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":79
     },
     {
-      "code":123,
+      "code":"123",
       "compact_coef":128,
       "hum_rf":[
         0,
@@ -5206,10 +5329,11 @@
       "name":"MANDIOCA BLANCA",
       "slope":82,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":108
     },
     {
-      "code":124,
+      "code":"124",
       "compact_coef":130,
       "hum_rf":[
         0,
@@ -5248,10 +5372,11 @@
       "name":"MANDIOCA TOSTADA",
       "slope":99,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":110
     },
     {
-      "code":125,
+      "code":"125",
       "compact_coef":120,
       "hum_rf":[
         17,
@@ -5290,10 +5415,11 @@
       "name":"MANI BLANCHEADO",
       "slope":75,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":72
     },
     {
-      "code":126,
+      "code":"126",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -5332,10 +5458,11 @@
       "name":"MANI CON CASCARA",
       "slope":34,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":1
     },
     {
-      "code":127,
+      "code":"127",
       "compact_coef":120,
       "hum_rf":[
         23,
@@ -5374,10 +5501,11 @@
       "name":"MANI DESCASCAR.",
       "slope":75,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":72
     },
     {
-      "code":128,
+      "code":"128",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5416,10 +5544,11 @@
       "name":"MANI GRANA BLAN.",
       "slope":78,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":31
     },
     {
-      "code":129,
+      "code":"129",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5458,10 +5587,11 @@
       "name":"MANI GRANA TOST.",
       "slope":77,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":29
     },
     {
-      "code":130,
+      "code":"130",
       "compact_coef":112,
       "hum_rf":[
         4,
@@ -5500,10 +5630,11 @@
       "name":"MANI PELL. PIEL",
       "slope":24,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":15
     },
     {
-      "code":131,
+      "code":"131",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5542,10 +5673,11 @@
       "name":"MANI PELL.CASCA.",
       "slope":75,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":34
     },
     {
-      "code":132,
+      "code":"132",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5584,10 +5716,11 @@
       "name":"MANI ROSTAGRO",
       "slope":78,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":17
     },
     {
-      "code":133,
+      "code":"133",
       "compact_coef":125,
       "hum_rf":[
         0,
@@ -5626,10 +5759,11 @@
       "name":"MANI T.SPLIT s/p",
       "slope":75,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":60
     },
     {
-      "code":134,
+      "code":"134",
       "compact_coef":126,
       "hum_rf":[
         0,
@@ -5668,10 +5802,11 @@
       "name":"MARACUYA",
       "slope":73,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":67
     },
     {
-      "code":135,
+      "code":"135",
       "compact_coef":123,
       "hum_rf":[
         32,
@@ -5710,10 +5845,11 @@
       "name":"MAT 160gr +-100",
       "slope":40,
       "tcoef":81,
+      "updated":"21/04/2020 21:59:35",
       "y0":1
     },
     {
-      "code":136,
+      "code":"136",
       "compact_coef":123,
       "hum_rf":[
         32,
@@ -5752,10 +5888,11 @@
       "name":"MAT 360gr +-100",
       "slope":90,
       "tcoef":81,
+      "updated":"21/04/2020 21:59:35",
       "y0":1
     },
     {
-      "code":137,
+      "code":"137",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -5794,10 +5931,11 @@
       "name":"MELILOTUS ALBA",
       "slope":105,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":140
     },
     {
-      "code":138,
+      "code":"138",
       "compact_coef":126,
       "hum_rf":[
         0,
@@ -5836,10 +5974,11 @@
       "name":"MIJO",
       "slope":92,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":77
     },
     {
-      "code":139,
+      "code":"139",
       "compact_coef":179,
       "hum_rf":[
         0,
@@ -5878,10 +6017,11 @@
       "name":"MILHO AUT",
       "slope":74,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":98
     },
     {
-      "code":140,
+      "code":"140",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -5920,10 +6060,11 @@
       "name":"MOHA",
       "slope":96,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":107
     },
     {
-      "code":141,
+      "code":"141",
       "compact_coef":124,
       "hum_rf":[
         55,
@@ -5962,10 +6103,11 @@
       "name":"MOSTAZA",
       "slope":91,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":148
     },
     {
-      "code":142,
+      "code":"142",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6004,10 +6146,11 @@
       "name":"MUNI. CANUELAS",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":143,
+      "code":"143",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6046,10 +6189,11 @@
       "name":"NABO FORRAJERO",
       "slope":88,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":96
     },
     {
-      "code":144,
+      "code":"144",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6088,10 +6232,11 @@
       "name":"NIDOS CANUELAS",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":145,
+      "code":"145",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6130,10 +6275,11 @@
       "name":"NUEZ",
       "slope":44,
       "tcoef":91,
+      "updated":"21/04/2020 21:59:35",
       "y0":2
     },
     {
-      "code":146,
+      "code":"146",
       "compact_coef":124,
       "hum_rf":[
         56,
@@ -6172,10 +6318,11 @@
       "name":"NUEZ PECAN",
       "slope":46,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":120
     },
     {
-      "code":147,
+      "code":"147",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6214,10 +6361,11 @@
       "name":"PALLAR IQUENO",
       "slope":88,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":91
     },
     {
-      "code":148,
+      "code":"148",
       "compact_coef":127,
       "hum_rf":[
         0,
@@ -6256,10 +6404,11 @@
       "name":"PANICUM M. ARIES",
       "slope":77,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":69
     },
     {
-      "code":149,
+      "code":"149",
       "compact_coef":127,
       "hum_rf":[
         14,
@@ -6298,10 +6447,11 @@
       "name":"PANICUM M. MOMI.",
       "slope":64,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":50
     },
     {
-      "code":150,
+      "code":"150",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6340,10 +6490,11 @@
       "name":"PASTA FRESCA",
       "slope":87,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":0
     },
     {
-      "code":151,
+      "code":"151",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6382,10 +6533,11 @@
       "name":"PASTO OVILLO",
       "slope":32,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":17
     },
     {
-      "code":152,
+      "code":"152",
       "compact_coef":120,
       "hum_rf":[
         0,
@@ -6424,10 +6576,11 @@
       "name":"PIMENTA DO REINO",
       "slope":71,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":58
     },
     {
-      "code":153,
+      "code":"153",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6466,10 +6619,11 @@
       "name":"PISTACHE",
       "slope":65,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":19
     },
     {
-      "code":154,
+      "code":"154",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6508,10 +6662,11 @@
       "name":"PISTACHO",
       "slope":65,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":19
     },
     {
-      "code":155,
+      "code":"155",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6550,10 +6705,11 @@
       "name":"PLASMA BOVINO",
       "slope":45,
       "tcoef":127,
+      "updated":"21/04/2020 21:59:35",
       "y0":7
     },
     {
-      "code":156,
+      "code":"156",
       "compact_coef":123,
       "hum_rf":[
         1,
@@ -6592,10 +6748,11 @@
       "name":"POLEN",
       "slope":86,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":78
     },
     {
-      "code":157,
+      "code":"157",
       "compact_coef":128,
       "hum_rf":[
         89,
@@ -6634,10 +6791,11 @@
       "name":"POROTO BICO OURO",
       "slope":93,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":183
     },
     {
-      "code":158,
+      "code":"158",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6676,10 +6834,11 @@
       "name":"POROTO BLACKEYE",
       "slope":100,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":91
     },
     {
-      "code":159,
+      "code":"159",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -6718,10 +6877,11 @@
       "name":"POROTO BLANCO",
       "slope":100,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":85
     },
     {
-      "code":160,
+      "code":"160",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6760,10 +6920,11 @@
       "name":"POROTO BOLA ROJA",
       "slope":98,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":79
     },
     {
-      "code":161,
+      "code":"161",
       "compact_coef":124,
       "hum_rf":[
         64,
@@ -6802,10 +6963,11 @@
       "name":"POROTO C.ROJO",
       "slope":87,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":103
     },
     {
-      "code":162,
+      "code":"162",
       "compact_coef":129,
       "hum_rf":[
         87,
@@ -6844,10 +7006,11 @@
       "name":"POROTO CARIOCA",
       "slope":95,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":159
     },
     {
-      "code":163,
+      "code":"163",
       "compact_coef":128,
       "hum_rf":[
         58,
@@ -6886,10 +7049,11 @@
       "name":"POROTO CAUPI",
       "slope":103,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":170
     },
     {
-      "code":164,
+      "code":"164",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -6928,10 +7092,11 @@
       "name":"POROTO CRANBERRY",
       "slope":100,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":113
     },
     {
-      "code":165,
+      "code":"165",
       "compact_coef":128,
       "hum_rf":[
         68,
@@ -6970,10 +7135,11 @@
       "name":"POROTO FRADINHO",
       "slope":103,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":170
     },
     {
-      "code":166,
+      "code":"166",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7012,10 +7178,11 @@
       "name":"POROTO MUNG",
       "slope":113,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":107
     },
     {
-      "code":167,
+      "code":"167",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7054,10 +7221,11 @@
       "name":"POROTO NAVY",
       "slope":107,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":94
     },
     {
-      "code":168,
+      "code":"168",
       "compact_coef":124,
       "hum_rf":[
         28,
@@ -7096,10 +7264,11 @@
       "name":"POROTO NEGRO",
       "slope":103,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":141
     },
     {
-      "code":169,
+      "code":"169",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -7138,10 +7307,11 @@
       "name":"POROTO NEGRO BR",
       "slope":100,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":85
     },
     {
-      "code":170,
+      "code":"170",
       "compact_coef":128,
       "hum_rf":[
         72,
@@ -7180,10 +7350,11 @@
       "name":"POROTO NOVA ERA",
       "slope":91,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":175
     },
     {
-      "code":171,
+      "code":"171",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7222,10 +7393,11 @@
       "name":"POROTO PALMENIA",
       "slope":99,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":111
     },
     {
-      "code":172,
+      "code":"172",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7264,10 +7436,11 @@
       "name":"POROTO RADICAL",
       "slope":98,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":119
     },
     {
-      "code":173,
+      "code":"173",
       "compact_coef":124,
       "hum_rf":[
         51,
@@ -7306,10 +7479,11 @@
       "name":"POROTO RED KIDN.",
       "slope":93,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":120
     },
     {
-      "code":174,
+      "code":"174",
       "compact_coef":123,
       "hum_rf":[
         60,
@@ -7348,10 +7522,11 @@
       "name":"QUESO RALLADO",
       "slope":62,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":175,
+      "code":"175",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7390,10 +7565,11 @@
       "name":"QUINOA",
       "slope":96,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":91
     },
     {
-      "code":176,
+      "code":"176",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7432,10 +7608,11 @@
       "name":"R.GRAS TETRA N",
       "slope":34,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":31
     },
     {
-      "code":177,
+      "code":"177",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7474,10 +7651,11 @@
       "name":"RAIGRAS ANUAL",
       "slope":49,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":49
     },
     {
-      "code":178,
+      "code":"178",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7516,10 +7694,11 @@
       "name":"RAIGRAS ANUAL B",
       "slope":49,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":49
     },
     {
-      "code":179,
+      "code":"179",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7558,10 +7737,11 @@
       "name":"RIGATTI CANUELAS",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":180,
+      "code":"180",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7600,10 +7780,11 @@
       "name":"RUMIAMIX",
       "slope":82,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":72
     },
     {
-      "code":181,
+      "code":"181",
       "compact_coef":125,
       "hum_rf":[
         0,
@@ -7642,10 +7823,11 @@
       "name":"SCRAP PAITA",
       "slope":55,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":39
     },
     {
-      "code":182,
+      "code":"182",
       "compact_coef":129,
       "hum_rf":[
         0,
@@ -7684,10 +7866,11 @@
       "name":"SEMILLA DE UVA",
       "slope":82,
       "tcoef":130,
+      "updated":"21/04/2020 21:59:35",
       "y0":81
     },
     {
-      "code":183,
+      "code":"183",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7726,10 +7909,11 @@
       "name":"SEMOLA DE ARROZ",
       "slope":91,
       "tcoef":109,
+      "updated":"21/04/2020 21:59:35",
       "y0":98
     },
     {
-      "code":184,
+      "code":"184",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -7768,10 +7952,11 @@
       "name":"SEMOLIN",
       "slope":66,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":77
     },
     {
-      "code":185,
+      "code":"185",
       "compact_coef":124,
       "hum_rf":[
         31,
@@ -7810,10 +7995,11 @@
       "name":"SESAMO",
       "slope":77,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":131
     },
     {
-      "code":186,
+      "code":"186",
       "compact_coef":118,
       "hum_rf":[
         0,
@@ -7852,10 +8038,11 @@
       "name":"SOJA",
       "slope":96,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":70
     },
     {
-      "code":187,
+      "code":"187",
       "compact_coef":118,
       "hum_rf":[
         0,
@@ -7894,10 +8081,11 @@
       "name":"SOJA DESACTIV.",
       "slope":96,
       "tcoef":144,
+      "updated":"21/04/2020 21:59:35",
       "y0":70
     },
     {
-      "code":188,
+      "code":"188",
       "compact_coef":124,
       "hum_rf":[
         13,
@@ -7936,10 +8124,11 @@
       "name":"SOJA TEXT. FINO",
       "slope":32,
       "tcoef":126,
+      "updated":"21/04/2020 21:59:35",
       "y0":26
     },
     {
-      "code":189,
+      "code":"189",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -7978,10 +8167,11 @@
       "name":"SOJA TEXTURIZADA",
       "slope":64,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":39
     },
     {
-      "code":190,
+      "code":"190",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -8020,10 +8210,11 @@
       "name":"SORGO",
       "slope":97,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":114
     },
     {
-      "code":191,
+      "code":"191",
       "compact_coef":122,
       "hum_rf":[
         0,
@@ -8062,10 +8253,11 @@
       "name":"SORGO HUMEDO",
       "slope":97,
       "tcoef":128,
+      "updated":"21/04/2020 21:59:35",
       "y0":114
     },
     {
-      "code":192,
+      "code":"192",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8104,10 +8296,11 @@
       "name":"TE",
       "slope":67,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":68
     },
     {
-      "code":193,
+      "code":"193",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8146,10 +8339,11 @@
       "name":"TE EN RAMA",
       "slope":25,
       "tcoef":121,
+      "updated":"21/04/2020 21:59:35",
       "y0":7
     },
     {
-      "code":194,
+      "code":"194",
       "compact_coef":123,
       "hum_rf":[
         32,
@@ -8188,10 +8382,11 @@
       "name":"TEST CALIB",
       "slope":127,
       "tcoef":81,
+      "updated":"21/04/2020 21:59:35",
       "y0":1
     },
     {
-      "code":195,
+      "code":"195",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8230,10 +8425,11 @@
       "name":"TIRA. CANUELAS",
       "slope":84,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":97
     },
     {
-      "code":196,
+      "code":"196",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8272,10 +8468,11 @@
       "name":"TREBOL BLANCO",
       "slope":101,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":101
     },
     {
-      "code":197,
+      "code":"197",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8314,10 +8511,11 @@
       "name":"TREBOL ROJO",
       "slope":103,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":115
     },
     {
-      "code":198,
+      "code":"198",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -8356,10 +8554,11 @@
       "name":"TRIGO",
       "slope":101,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":116
     },
     {
-      "code":199,
+      "code":"199",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -8398,10 +8597,11 @@
       "name":"TRIGO 300 gr.",
       "slope":74,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":66
     },
     {
-      "code":200,
+      "code":"200",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8440,10 +8640,11 @@
       "name":"TRIGO CANDEAL",
       "slope":101,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":116
     },
     {
-      "code":201,
+      "code":"201",
       "compact_coef":123,
       "hum_rf":[
         0,
@@ -8482,10 +8683,11 @@
       "name":"TRIGO DURO",
       "slope":101,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":116
     },
     {
-      "code":202,
+      "code":"202",
       "compact_coef":123,
       "hum_rf":[
         19,
@@ -8524,10 +8726,11 @@
       "name":"TRIGO REV2011 BR",
       "slope":88,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":153
     },
     {
-      "code":203,
+      "code":"203",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8566,10 +8769,11 @@
       "name":"TRITICALE",
       "slope":80,
       "tcoef":138,
+      "updated":"21/04/2020 21:59:35",
       "y0":99
     },
     {
-      "code":204,
+      "code":"204",
       "compact_coef":124,
       "hum_rf":[
         0,
@@ -8608,6 +8812,7 @@
       "name":"VETI.NUTRILACTA",
       "slope":90,
       "tcoef":131,
+      "updated":"21/04/2020 21:59:35",
       "y0":62
     }
   ]
