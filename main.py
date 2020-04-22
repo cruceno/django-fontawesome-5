@@ -11,7 +11,7 @@ from scales import Scales
 from math import log
 from statistics import mean, stdev
 from config import load_config, update_config
-import ujson
+
 
 uart = UART(2, 9600)
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)
@@ -50,6 +50,7 @@ class Delver:
 
     def __init__(self, lcd, scale):
         self.config = load_config()
+        self.kalvaso = bytearray(self.config['rf']['calibration'])
         self.lcd = lcd
         self.load_cell = scale
 
