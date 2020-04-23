@@ -3,7 +3,7 @@ from machine import I2C, Pin, ADC
 from esp8266_i2c_lcd import I2cLcd
 from button import Button
 import time
-from utime import sleep_us
+from utime import sleep_us, sleep
 import _thread
 from machine import UART
 from serialapi import SerialAPI
@@ -11,7 +11,7 @@ from scales import Scales
 from math import log
 from statistics import mean, stdev
 from config import load_config, update_config
-
+from materials import material_from_code, add_material, update_material, remove_material, Material
 
 uart = UART(2, 9600)
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)
@@ -50,7 +50,7 @@ class Delver:
 
     def __init__(self, lcd, scale):
         self.config = load_config()
-        self.kalvaso = bytearray(self.config['rf']['calibration'])
+        self.kalvaso = self.config['rf']['calibration']
         self.lcd = lcd
         self.load_cell = scale
 
@@ -81,6 +81,7 @@ class Delver:
         self.stop = True
         self.stable_time = 4
         self.LCD_STATE = True
+        self.current_material = Material()
         self.home()
 
     def read_adc(self, adc, vref, n=100, delay_us=10):
