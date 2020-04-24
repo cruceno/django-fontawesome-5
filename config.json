@@ -13,33 +13,34 @@
   "rf": {
     "calibration": [
       0,
-      30.2,
-      61.6,
-      100.2,
-      151.1,
-      182.1,
-      166.6,
-      131.8,
-      119.8,
-      102.4,
-      60.3,
-      30.2,
-      11.3,
-      3.0,
-      -0.7,
-      -1.5,
-      0
+      -2,
+      -4,
+      -6,
+      -8,
+      -9,
+      -8,
+      -7,
+      -9,
+      -9,
+      -9,
+      -10,
+      -10,
+      -9,
+      -6,
+      -3,
+       0
     ],
     "samples": 100,
     "delay": 10,
-    "max_std_deviation": 1
+    "max_std_deviation": 1,
+    "vaso_auxi": 0.99
   },
 
   "load_cell": {
     "model": "A",
     "max_load": 3000,
-    "calibration_factor": 1,
-    "samples": 100,
+    "calibration_factor": 0.0006622,
+    "samples": 20,
     "delay": 10,
     "max_std_deviation": 1
   },
@@ -58,6 +59,7 @@
       "samples": 100,
       "delay": 10
     }
-  }
+  },
+  "materials":["190","106","186","198", "005", "028", "029", "069", "102", "127"]
 }
 
