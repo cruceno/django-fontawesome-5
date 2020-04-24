@@ -141,3 +141,4 @@ pip-selfcheck.json
 
 .idea
 data/materials
+*.json
