@@ -3,7 +3,7 @@ import ujson
 
 def load_config():
     try:
-        with open("config.json", 'rt') as f:
+        with open("config.json", 'r') as f:
             configuration = ujson.load(f)
             return configuration
 
@@ -12,14 +12,8 @@ def load_config():
 
 
 def save_config(config):
-    old_config = load_config()
-    try:
-        with open("config.json", 'w') as f:
-            new_config = old_config.update(config)
-            ujson.dump(new_config, f)
-
-    except Exception as e:
-        print(str(e))
+    with open("config.json", 'w') as f:
+        ujson.dump(config, f)
 
 
 def load_defaults():

@@ -10,10 +10,11 @@ from serialapi import SerialAPI
 from scales import Scales
 from math import log
 from statistics import mean, stdev
-from config import load_config, update_config
-from materials import material_from_code, add_material, update_material, remove_material, Material
+from config import load_config, update_config, save_config
+from materials import material_from_code, add_material, update_material, remove_material, Material, next_material
+from calculations import medicion_grano
 
-uart = UART(2, 9600)
+uart = UART(2, 115200)
 i2c = I2C(scl=Pin(22), sda=Pin(21), freq=400000)
 scale = Scales(d_out=23, pd_sck=19)
 api = SerialAPI(uart)
@@ -53,6 +54,7 @@ class Delver:
         self.kalvaso = self.config['rf']['calibration']
         self.lcd = lcd
         self.load_cell = scale
+        self.load_cell.set_factor(self.config['load_cell']["calibration_factor"])
 
         self.vterm = ADC(Pin(34))  # OSC Pin 3
         self.vterm.atten(ADC.ATTN_11DB)
@@ -82,6 +84,8 @@ class Delver:
         self.stable_time = 4
         self.LCD_STATE = True
         self.current_material = Material()
+        self.previous_material = "000"
+        self.fav_index = 0
         self.home()
 
     def read_adc(self, adc, vref, n=100, delay_us=10):
@@ -118,25 +122,46 @@ class Delver:
         if method == 'get':
             return self.config['load_cell']
         else:
-            return update_config(self.config['load_cell'], params)
+            result = update_config(self.config['load_cell'], params)
+
+            if result['result'] == 200:
+                save_config(self.config)
+                return result
+            else:
+                return result
 
     def config_rf(self, method, params):
         if method == 'get':
             return self.config['rf']
         else:
-            return update_config(self.config['rf'], params)
+            result = update_config(self.config['rf'], params)
+            if result['result'] == 200:
+                save_config(self.config)
+                return result
+            else:
+                return result
 
     def config_thermal(self, method, params):
         if method == 'get':
             return self.config['thermal']
         else:
-            return update_config(self.config['thermal'], params)
+            result = update_config(self.config['thermal'], params)
+            if result['result'] == 200:
+                save_config(self.config)
+                return result
+            else:
+                return result
 
     def config_system(self, method, params):
         if method == 'get':
             return self.config['system']
         else:
-            return update_config(self.config['system'], params)
+            result = update_config(self.config['system'], params)
+            if result['result'] == 200:
+                save_config(self.config)
+                return result
+            else:
+                return result
 
     ## Control system
     def control_rf(self, method, params):
@@ -151,7 +176,7 @@ class Delver:
                 }
 
     def control_tare(self, params=None):
-        self.load_cell.tare()
+        self.load_cell.tare(self.config["load_cell"]["samples"], self.config["load_cell"]["delay"])
         tara = self.load_cell.get_offset()*self.load_cell.get_factor()
         return {"result": 200, "msg": "Tara aplicada", "value": tara}
 
@@ -340,7 +365,7 @@ class Delver:
 
             vt = self.read_vterm()
             bt = self.read_bterm()
-            lc = int((self.load_cell.get_value(samples=10, delay=10)[0] - self.load_cell.get_offset()) / self.load_cell.get_factor())
+            lc = int((self.load_cell.get_value(samples=10, delay=10)[0]) * self.load_cell.get_factor())
             time.sleep(.1)
 
     def debug_page(self):
@@ -350,16 +375,57 @@ class Delver:
         self.btn1.set_action(self.toggle_func)
         # self.tp.actions[1] =
         self.btn3.set_action(self.home)
-        self.btn2.set_action(self.load_cell.tare)
+        self.btn2.set_action(self.load_cell.tareself.config["load_cell"]["samples"], self.config["load_cell"]["delay"])
         _thread.start_new_thread(self.debug_thread, ())
 
     def home(self):
         self.stop = True
-        self.btn1.set_action(self.step_1)
+        self.current_material = Material()
+        self.fav_index = 0
+        self.btn1.set_action(self.select_favourite_material)
         self.btn3.set_action(self.debug_page)
         self.set_off_osc()
         self.lcd.clear()
         self.lcd.putstr("    DELVER    \nIniciar -- Debug")
+
+    def select_favourite_material(self):
+        self.btn1.set_action(self.select_favourite_material)
+        self.btn2.set_action(self.home)
+        self.lcd.clear()
+        self.lcd.putstr('! Buscando        material !')
+        if self.fav_index <= 9:
+            self.current_material = material_from_code(self.config["materials"][self.fav_index])
+            name = self.current_material.name
+            self.fav_index = self.fav_index + 1
+            name = name[0:14] if len(name) > 15 else name
+            self.lcd.clear()
+            screen = name+'\n'+"Next  Back  Ok"
+            self.lcd.putstr(screen)
+            self.btn3.set_action(self.step_1)
+
+        else:
+            self.lcd.clear()
+            self.btn3.set_action(self.select_material)
+            self.current_material = Material()
+            self.lcd.putstr("  Ver  todos \n      Back    Ok")
+
+    def select_material(self):
+        self.fav_index = 0
+        self.lcd.clear()
+        self.lcd.putstr('! Buscando        material !')
+        if not self.current_material.code:
+            self.current_material = next_material("000")
+        else:
+            self.current_material = next_material(self.current_material.code)
+
+        self.btn1.set_action(self.select_material)
+        self.btn2.set_action(self.select_favourite_material)
+        self.btn3.set_action(self.step_1)
+        self.lcd.clear()
+
+        name = self.current_material.name
+        name = name[0:14] if len(name) > 15 else name
+        self.lcd.putstr(name+'\n'+"Next  Back  Ok")
 
     def step_1(self):
         self.stop = True
@@ -373,17 +439,17 @@ class Delver:
         self.btn1.set_action(self.no_action)
         self.btn3.set_action(self.no_action)
         self.lcd.clear()
-        self.lcd.putstr("Midiendo   \n                ")
+        self.lcd.putstr("Midiendo... \n                ")
         self.value = 0
+        self.load_cell.tare(self.config["load_cell"]["samples"], self.config["load_cell"]["delay"])
         while self.value == 0:
+
             self.value = self.get_relation()
             time.sleep(.1)
 
-        self.midosc.value(1)
-        self.lcd.clear()
-        self.lcd.putstr("Valor:{}    \nCancelar --  OK".format(self.value))
-        self.btn1.set_action(self.home)
-        self.btn3.set_action(self.step_2)
+        # self.lcd.clear()
+        # self.lcd.putstr("Valor:{}    \nCancelar --  OK".format(self.value))
+        self.step_2()
 
     def step_2(self):
 
@@ -397,13 +463,31 @@ class Delver:
         self.btn1.set_action(self.no_action)
         self.btn3.set_action(self.no_action)
         self.lcd.clear()
-        self.lcd.putstr("Midiendo \n                ")
-        value = self.get_relation()
-        medicion = int(value/self.value*1024)
+        self.lcd.putstr("!! PROCESANDO  \n      MATERIAL !!")
+        p_peso = int((self.load_cell.get_value(self.config["load_cell"]["samples"],
+                                               self.config["load_cell"]["delay"],)[0]) * self.load_cell.get_factor())
+
+        p_relacion = self.get_relation()/self.value * 1024
+        temp_v = self.read_vterm()
+        temp_b = self.read_bterm()
+        offset = self.get_osc_offset()[0]
+        auxi = self.config["rf"]["vaso_auxi"]
+
+        medicion = medicion_grano(p_peso,
+                                  p_relacion,
+                                  temp_v,
+                                  temp_b,
+                                  offset,
+                                  self.current_material.t_coef,
+                                  self.current_material.slope,
+                                  self.current_material.y0,
+                                  self.current_material.c_coef,
+                                  self.kalvaso,
+                                  self.current_material.hum_rf,
+                                  auxi
+                                  )
         self.lcd.clear()
-        self.lcd.putstr("Medicion:{} \n{}/{}".format(medicion,
-                                                     value,
-                                                     self.value))
+        self.lcd.putstr("Humedad :{0:.1f}% \nPH:{1:.2f}".format(medicion[0], medicion[1]))
         self.lcd.move_to(13,1)
         self.lcd.putstr('OK')
 
@@ -411,8 +495,6 @@ class Delver:
         self.btn3.set_action(self.home)
 
 delver = Delver(lcd, scale)
-#TODO > cargar en parametro de configuracion
-delver.load_cell.set_factor(498/751943.4)
 
 # Config system
 api.add_command('config/get/load-cell', delver.config_load_cell)
