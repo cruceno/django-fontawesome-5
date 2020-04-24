@@ -35,6 +35,31 @@ def material_from_code(code):
     return None
 
 
+def next_material(code):
+
+    obj = Material()
+    materials = get_iterator()
+    material = materials.__next__()
+    while material:
+        if code == material[0].split('.')[0]:
+            try:
+                material = materials.__next__()
+                with open('/'.join([MATERIAL_PATH, material[0]]), 'r') as f:
+                    data = ujson.load(f)
+                    obj.code = data["code"]
+                    obj.name = data["name"]
+                    obj.hum_rf = data["hum_rf"]
+                    obj.c_coef = data["c_coef"]
+                    obj.t_coef = data["t_coef"]
+                    obj.slope = data["slope"]
+                    obj.y0 = data["y0"]
+                    return obj
+            except StopIteration:
+                return None
+        material = materials.__next__()
+    return False
+
+
 def remove_material(code):
     materials = get_iterator()
     for material in materials:
@@ -45,7 +70,6 @@ def remove_material(code):
 
 
 def add_material(material_dict):
-
     try:
         uos.stat('/'.join([MATERIAL_PATH, material_dict['code']]))
         return False
@@ -54,7 +78,6 @@ def add_material(material_dict):
         with open('/'.join([MATERIAL_PATH, material_dict['code']+'.json']), 'w') as f:
             ujson.dump(material_dict, f)
             return True
-
 
 def update_material(material_dict):
     materials = get_iterator()
