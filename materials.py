@@ -71,19 +71,10 @@ def remove_material(code):
 
 def add_material(material_dict):
     try:
-        uos.stat('/'.join([MATERIAL_PATH, material_dict['code']]))
-        return False
-
-    except OSError:
         with open('/'.join([MATERIAL_PATH, material_dict['code']+'.json']), 'w') as f:
             ujson.dump(material_dict, f)
             return True
 
-def update_material(material_dict):
-    materials = get_iterator()
-    for material in materials:
-        if material_dict['code'] == material[0].split('.')[0]:
-            with open('/'.join([MATERIAL_PATH, material_dict['code']+'.json']), 'w') as f:
-                ujson.dump(material_dict, f)
-                return True
-    return False
+    except OSError:
+        return True
+

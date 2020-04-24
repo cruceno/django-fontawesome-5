@@ -11,7 +11,7 @@ from scales import Scales
 from math import log
 from statistics import mean, stdev
 from config import load_config, update_config, save_config
-from materials import material_from_code, add_material, update_material, remove_material, Material, next_material
+from materials import material_from_code, add_material, remove_material, Material, next_material
 from calculations import medicion_grano
 
 uart = UART(2, 115200)
@@ -375,7 +375,9 @@ class Delver:
         self.btn1.set_action(self.toggle_func)
         # self.tp.actions[1] =
         self.btn3.set_action(self.home)
-        self.btn2.set_action(self.load_cell.tareself.config["load_cell"]["samples"], self.config["load_cell"]["delay"])
+        self.btn2.set_action(self.load_cell.tare(self.config["load_cell"]["samples"],
+                                                 self.config["load_cell"]["delay"])
+                             )
         _thread.start_new_thread(self.debug_thread, ())
 
     def home(self):
