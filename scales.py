@@ -18,9 +18,9 @@ class Scales(HX711):
         self._factor = factor
         return self._factor
 
-    def tare(self):
+    def tare(self, samples, delay):
         self._offset = 0
-        self._offset = self.get_value()[0]
+        self._offset = mean(self.get_samples(samples, delay))
 
     def raw_value(self):
         return self.read() - self._offset
