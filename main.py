@@ -1,7 +1,7 @@
 import gc
 from machine import I2C, Pin, ADC
 from esp8266_i2c_lcd import I2cLcd
-from button import Button
+from button import Button, no_action
 import time
 from utime import sleep_us, sleep
 import _thread
@@ -20,35 +20,8 @@ scale = Scales(d_out=23, pd_sck=19)
 api = SerialAPI(uart)
 lcd = I2cLcd(i2c, 0x27, 2, 16)
 
-# #Proceso
-# Analizar humedad
-# Elegir material
-#     cargar desde materials.json
-# Vaciar vaso
-#     offset
-#     oscilador
-#     vaso
-#     calcular relacion
-# Verificar tara
-#     if Ajustar tara
-# Medir vaso vacio y t0
-# Llenar vaso
-#     Medir peso
-# tf Medir temperatura durante 16 segundos
-# TODO > Calculo de temperatura de grano por extrapolacion
-# comparar temperaturas para definir temperatura de grano
-# Medir Rf con vaso lleno
-#     offset
-#     oscilador
-#     vaso
-#     calcular relacion
-# TODO > relacorr = ((1024- relacion - material.y0*2) * 4.0 * material.slope / peso
-# humedad = material.get_humedad(relacorr)
-# TODO > Calculo de peso helectrolitico ??
-
 
 class Delver:
-
     def __init__(self, lcd, scale):
         self.config = load_config()
         self.kalvaso = self.config['rf']['calibration']
@@ -115,139 +88,6 @@ class Delver:
             self.lcd.backlight_on()
             self.lcd.display_on()
             self.LCD_STATE = True
-
-    # APi endpoints+
-    ## Config system
-    def config_load_cell(self, method, params):
-        if method == 'get':
-            return self.config['load_cell']
-        else:
-            result = update_config(self.config['load_cell'], params)
-
-            if result['result'] == 200:
-                save_config(self.config)
-                return result
-            else:
-                return result
-
-    def config_rf(self, method, params):
-        if method == 'get':
-            return self.config['rf']
-        else:
-            result = update_config(self.config['rf'], params)
-            if result['result'] == 200:
-                save_config(self.config)
-                return result
-            else:
-                return result
-
-    def config_thermal(self, method, params):
-        if method == 'get':
-            return self.config['thermal']
-        else:
-            result = update_config(self.config['thermal'], params)
-            if result['result'] == 200:
-                save_config(self.config)
-                return result
-            else:
-                return result
-
-    def config_system(self, method, params):
-        if method == 'get':
-            return self.config['system']
-        else:
-            result = update_config(self.config['system'], params)
-            if result['result'] == 200:
-                save_config(self.config)
-                return result
-            else:
-                return result
-
-    ## Control system
-    def control_rf(self, method, params):
-        print(params)
-        if method == "post":
-            self.set_osc(params["enosc"], params["midosc"], params["midvaso"])
-
-        return {"result": 200,
-                "enosc": bool(self.enosc.value()),
-                "midosc": bool(self.midosc.value()),
-                "midvaso": bool(self.midvaso.value()),
-                }
-
-    def control_tare(self, params=None):
-        self.load_cell.tare(self.config["load_cell"]["samples"], self.config["load_cell"]["delay"])
-        tara = self.load_cell.get_offset()*self.load_cell.get_factor()
-        return {"result": 200, "msg": "Tara aplicada", "value": tara}
-
-    ## Measure system
-
-    def measure_rf(self, params):
-        samples = params["samples"] if "samples" in params else self.config["rf"]["samples"]
-        delay = params["delay"] if "delay" in params else self.config["rf"]["delay"]
-        read = self.read_rf(samples=samples, delay=delay)
-
-        if "raw" in params and params["raw"]:
-            value = read[0]
-            std_dev = read[1]
-        else:
-            value = read[2]
-            std_dev = read[3]
-
-        return {"result": 200, "value": value, "std_dev": std_dev}
-
-    def measure_load_cell(self, params):
-        samples = params["samples"] if "samples" in params else self.config["load_cell"]["samples"]
-        delay = params["delay"] if "delay" in params else self.config["load_cell"]["delay"]
-        read = self.load_cell.get_value(samples, delay)
-
-        if "raw" in params and params["raw"]:
-            value = read[0]
-            std_dev = read[1]
-        else:
-            value = (read[0]-self.load_cell.get_offset())*self.load_cell.get_factor()
-            std_dev = read[1]*self.load_cell.get_factor()
-
-        return {"result": 200, "value": value, "std_dev": std_dev}
-
-
-    def measure_thermal(self, params):
-        # print(params)
-        if "sensor" in params:
-            sensor = params["sensor"]
-            # print (sensor)
-
-            if sensor in self.config["thermal"]:
-
-                samples = params["samples"] if "samples" in params else self.config["thermal"][sensor]["samples"]
-                delay = params["delay"] if "delay" in params else self.config["thermal"][sensor]["delay"]
-
-                adc = self.vterm if sensor == "vterm" else self.bterm
-                # print(adc)
-
-                read = self.read_adc(adc, vref=3.3, n=samples, delay_us=delay)
-
-                if "raw" in params and params["raw"]:
-                    value = read[0]
-                    std_dev = read[1]
-
-                else:
-                    a = self.config["thermal"][sensor]["coef_a"]
-                    b = self.config["thermal"][sensor]["coef_b"]
-                    # print(a, b)
-                    value = round(self.adc_to_temp(read[0], a, b), 1)
-
-                    std_dev = round(self.adc_to_temp(read[0]+read[1], a, b)-value, 1)
-
-                return {"result": 200, "value": value, "std_dev": std_dev}
-            else:
-                return {"result": 404, "msg": "Sensor {} not found".format(params["sensor"])}
-        else:
-            return {"result": 400, "msg": "El kewyword sensor no se encontro en los parametros recibidos"}
-
-
-    def no_action(self):
-        pass
 
     # RF functions
     def read_rf(self, samples=None, delay=None):
@@ -438,8 +278,8 @@ class Delver:
 
     def process_1(self):
 
-        self.btn1.set_action(self.no_action)
-        self.btn3.set_action(self.no_action)
+        self.btn1.set_action(no_action)
+        self.btn3.set_action(no_action)
         self.lcd.clear()
         self.lcd.putstr("Midiendo... \n                ")
         self.value = 0
@@ -462,8 +302,8 @@ class Delver:
 
     def process_2(self):
 
-        self.btn1.set_action(self.no_action)
-        self.btn3.set_action(self.no_action)
+        self.btn1.set_action(no_action)
+        self.btn3.set_action(no_action)
         self.lcd.clear()
         self.lcd.putstr("!! PROCESANDO  \n      MATERIAL !!")
         p_peso = int((self.load_cell.get_value(self.config["load_cell"]["samples"],
@@ -493,38 +333,204 @@ class Delver:
         self.lcd.move_to(13,1)
         self.lcd.putstr('OK')
 
-        self.btn1.set_action(self.no_action)
+        self.btn1.set_action(no_action)
         self.btn3.set_action(self.home)
 
 delver = Delver(lcd, scale)
 
-# Config system
-api.add_command('config/get/load-cell', delver.config_load_cell)
-api.add_command('config/post/load-cell', delver.config_load_cell)
-api.add_command('config/get/thermal', delver.config_thermal)
-api.add_command('config/post/thermal', delver.config_thermal)
-api.add_command('config/get/rf', delver.config_rf)
-api.add_command('config/post/rf', delver.config_rf)
-api.add_command('config/get/system', delver.config_system)
-api.add_command('config/post/system', delver.config_system)
 
-# Control system
-api.add_command('control/get/rf', delver.control_rf)
-api.add_command('control/post/rf', delver.control_rf)
-api.add_command('control/tare', delver.control_tare)
 
-# Measure system
-api.add_command('measure/load-cell', delver.measure_load_cell)
-api.add_command('measure/thermal', delver.measure_thermal)
-api.add_command('measure/rf', delver.measure_rf)
+# APi endpoints+
+## Config system
+def config_load_cell(method, params):
+    if method == 'get':
+        return delver.config['load_cell']
+    else:
+        result = update_config(delver.config['load_cell'], params)
+
+        if result['result'] == 200:
+            save_config(delver.config)
+            return result
+        else:
+            return result
+
+def config_rf(method, params):
+    if method == 'get':
+        return delver.config['rf']
+    else:
+        result = update_config(delver.config['rf'], params)
+        if result['result'] == 200:
+            save_config(delver.config)
+            return result
+        else:
+            return result
+
+def config_thermal(method, params):
+    if method == 'get':
+        return delver.config['thermal']
+    else:
+        result = update_config(delver.config['thermal'], params)
+        if result['result'] == 200:
+            save_config(delver.config)
+            return result
+        else:
+            return result
+
+def config_system(method, params):
+    if method == 'get':
+        return delver.config['system']
+    else:
+        result = update_config(delver.config['system'], params)
+        if result['result'] == 200:
+            save_config(delver.config)
+            return result
+        else:
+            return result
+
+## Control system
+def control_rf(method, params):
+    print(params)
+    if method == "post":
+        delver.set_osc(params["enosc"], params["midosc"], params["midvaso"])
+
+    return {"result": 200,
+            "enosc": bool(delver.enosc.value()),
+            "midosc": bool(delver.midosc.value()),
+            "midvaso": bool(delver.midvaso.value()),
+            }
+
+def control_tare(params=None):
+    delver.load_cell.tare(delver.config["load_cell"]["samples"], delver.config["load_cell"]["delay"])
+    tara = delver.load_cell.get_offset()*delver.load_cell.get_factor()
+    return {"result": 200, "msg": "Tara aplicada", "value": tara}
+
+## Measure system
+
+def measure_rf(params):
+    samples = params["samples"] if "samples" in params else delver.config["rf"]["samples"]
+    delay = params["delay"] if "delay" in params else delver.config["rf"]["delay"]
+    read = delver.read_rf(samples=samples, delay=delay)
+
+    if "raw" in params and params["raw"]:
+        value = read[0]
+        std_dev = read[1]
+    else:
+        value = read[2]
+        std_dev = read[3]
+
+    return {"result": 200, "value": value, "std_dev": std_dev}
+
+def measure_load_cell(params):
+    samples = params["samples"] if "samples" in params else delver.config["load_cell"]["samples"]
+    delay = params["delay"] if "delay" in params else delver.config["load_cell"]["delay"]
+    read = delver.load_cell.get_value(samples, delay)
+
+    if "raw" in params and params["raw"]:
+        value = read[0]
+        std_dev = read[1]
+    else:
+        value = (read[0]-delver.load_cell.get_offset())*delver.load_cell.get_factor()
+        std_dev = read[1]*delver.load_cell.get_factor()
+
+    return {"result": 200, "value": value, "std_dev": std_dev}
+
+def measure_thermal(params):
+    # print(params)
+    if "sensor" in params:
+        sensor = params["sensor"]
+        # print (sensor)
+
+        if sensor in delver.config["thermal"]:
+
+            samples = params["samples"] if "samples" in params else delver.config["thermal"][sensor]["samples"]
+            delay = params["delay"] if "delay" in params else delver.config["thermal"][sensor]["delay"]
+
+            adc = delver.vterm if sensor == "vterm" else delver.bterm
+            # print(adc)
+
+            read = delver.read_adc(adc, vref=3.3, n=samples, delay_us=delay)
+
+            if "raw" in params and params["raw"]:
+                value = read[0]
+                std_dev = read[1]
+
+            else:
+                a = delver.config["thermal"][sensor]["coef_a"]
+                b = delver.config["thermal"][sensor]["coef_b"]
+                # print(a, b)
+                value = round(delver.adc_to_temp(read[0], a, b), 1)
+
+                std_dev = round(delver.adc_to_temp(read[0]+read[1], a, b)-value, 1)
+
+            return {"result": 200, "value": value, "std_dev": std_dev}
+        else:
+            return {"result": 404, "msg": "Sensor {} not found".format(params["sensor"])}
+    else:
+        return {"result": 400, "msg": "El kewyword sensor no se encontro en los parametros recibidos"}
 
 #Material system
-# api.add_command('materials/get/all'
-# api.add_command('materials/get/config'
-# api.add_command('materials/get/material'
-# api.add_command('materials/post/add'
-# api.add_command('materials/post/update'
-# api.add_command('materials/post/delete'
+
+def api_favourite_materials(method, params):
+    # print(method, params)
+    if method == 'get':
+
+        return {"result": 200, "materials": delver.config['materials']}
+    else:
+        result = update_config(delver.config, params)
+        if result["result"] == 200:
+            save_config(delver.config)
+        return result
+
+
+def api_material_add(params):
+    try:
+        add_material(params)
+        return {"result":200, "msg": "El material se acrego correctamente."}
+    except Exception as e:
+        return{"result": 400, "msg": "No se pudo agregar el material. Error:{}".format(str(e))}
+
+def api_material_get_material(params):
+    try:
+        material = material_from_code(params['code'])
+        m_dict = material.__dict__
+        # m_dict["result"] = 200
+        return m_dict
+
+    except Exception as e:
+        return{"result": 400, "msg": "No se pudo recuperar el material. Error:{}".format(str(e))}
+
+def api_material_delete(params):
+    try:
+        remove_material(params['code'])
+        return {"result": 200, "msg": "El material se borro correctamente."}
+
+    except Exception as e:
+        return{"result": 400, "msg": "No se pudo borrar el material. Error:{}".format(str(e))}
+
+# Config system
+api.add_command('config/get/load-cell', config_load_cell)
+api.add_command('config/post/load-cell', config_load_cell)
+api.add_command('config/get/thermal', config_thermal)
+api.add_command('config/post/thermal', config_thermal)
+api.add_command('config/get/rf', config_rf)
+api.add_command('config/post/rf', config_rf)
+api.add_command('config/get/system', config_system)
+api.add_command('config/post/system', config_system)
+# Control system
+api.add_command('control/get/rf', control_rf)
+api.add_command('control/post/rf', control_rf)
+api.add_command('control/tare',  control_tare)
+# Measure system
+api.add_command('measure/load-cell', measure_load_cell)
+api.add_command('measure/thermal', measure_thermal)
+api.add_command('measure/rf', measure_rf)
+# Material system
+api.add_command('materials/get/favourite', api_favourite_materials)
+api.add_command('materials/post/favourite', api_favourite_materials)
+api.add_command('materials/get', api_material_get_material)
+api.add_command('materials/add', api_material_add)
+api.add_command('materials/delete', api_material_delete)
+
 
 def run_in_trhead():
     while True:
