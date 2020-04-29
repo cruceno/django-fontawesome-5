@@ -28,7 +28,7 @@ class SerialAPI(object):
 
         except Exception as e:
             self.sending = False
-            print("Error: {}".format(e))
+            # print("Error: {}".format(e))
 
     def read_command(self):
         if not self.sending:
