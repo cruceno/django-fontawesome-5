@@ -17,3 +17,7 @@ class Button:
 
     def set_action(self, method):
         self._action = method
+
+
+def no_action():
+    pass
