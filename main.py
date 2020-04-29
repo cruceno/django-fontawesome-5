@@ -63,7 +63,7 @@ class Delver:
         self.bterm.atten(ADC.ATTN_11DB)
 
         self.rfval = ADC(Pin(36))  # OSC Pin 10
-        self.rfval.atten(ADC.ATTN_6DB)
+        self.rfval.atten(ADC.ATTN_11DB)
 
         # DIGITAL OUTPUTS (value 0 is power on value 1 is power of)
         self.enosc = Pin(5, Pin.OUT, value=1)  # OSC Pin 2
@@ -255,9 +255,9 @@ class Delver:
         samples = self.config["rf"]["samples"] if samples is None else samples
         delay = self.config["rf"]["delay"] if delay is None else delay
 
-        read = self.read_adc(self.rfval, vref=2.0, n=samples, delay_us=delay)
+        read = self.read_adc(self.rfval, vref=3.6, n=samples, delay_us=delay)
         while read[1] > 1:
-            read = self.read_adc(self.rfval, vref=2.0, n=samples, delay_us=delay)
+            read = self.read_adc(self.rfval, vref=3.6, n=samples, delay_us=delay)
 
         return read
 
@@ -311,17 +311,20 @@ class Delver:
             self.func = 3
 
         elif self.func == 3:
+            self.func = 4
+
+        elif self.func == 4:
             self.func = 0
 
     ## Temperature functions
     def read_bterm(self):
-        adc = self.read_adc(self.bterm, vref=3.3, n=5)[0]
+        adc = self.read_adc(self.bterm, vref=3.6, n=5)[0]
         return round(self.adc_to_temp(adc), 1)
 
     def read_vterm(self):
        # -0,0279
        # 5776
-        adc = self.read_adc(self.vterm, vref=3.3, n=5)[0]
+        adc = self.read_adc(self.vterm, vref=3.6, n=5)[0]
         return round(self.adc_to_temp(adc), 1)        # self.tp.actions[2] = self.home
 
     @staticmethod
@@ -348,8 +351,14 @@ class Delver:
             vt = str(vt)
             self.lcd.putstr(vt if len(vt) == 4 else vt+' '*(4-len(vt)))
             self.lcd.move_to(3,1)
-            lc = str(lc)
-            self.lcd.putstr(lc if len(lc) == 5 else lc+' '*(5-len(lc)))
+            if self.func == 4:
+                adj = 2.25 - (self.read_vterm()-22)*7.9/1000
+                adj = "{0:.3f}".format(adj)
+                self.lcd.putstr(adj if len(adj) == 5 else adj+' '*(5-len(adj)))
+            else:
+                lc = str(lc)
+                self.lcd.putstr(lc if len(lc) == 5 else lc+' '*(5-len(lc)))
+
             self.lcd.move_to(12,1)
             bt = str(bt)
             self.lcd.putstr(bt if len(bt) == 4 else bt+' '*(4-len(bt)))
@@ -362,6 +371,8 @@ class Delver:
                 rf = self.get_midvaso()[0]
             elif self.func == 3:
                 rf = self.get_osc_offset()[0]
+            elif self.func == 4:
+                rf = self.get_midosc()[2]
 
             vt = self.read_vterm()
             bt = self.read_bterm()
