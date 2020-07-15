@@ -9,6 +9,7 @@ class Scales(HX711):
         super(Scales, self).__init__(d_out, pd_sck, channel)
         self._offset = 0
         self._factor = 1
+        # self.power_off()
 
     def reset(self):
         self.power_off()
@@ -26,6 +27,7 @@ class Scales(HX711):
         return self.read() - self._offset
 
     def get_samples(self, n, delay):
+        # self.power_on()
         samples = []
         for i in range(n + 1):
             sample = self.raw_value()
@@ -33,6 +35,7 @@ class Scales(HX711):
             acum = (sample - samples[i-1])/n + samples[i-1]
             samples[i] = acum
             sleep_us(delay)
+        # self.power_off()
         return samples
 
     def get_offset(self, raw=False):
@@ -49,3 +52,5 @@ class Scales(HX711):
         xbar = mean(data)
         return [xbar, stdev(data, xbar)]
 
+# 269611.7
+# 1110832.0,

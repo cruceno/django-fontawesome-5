@@ -36,6 +36,7 @@ class SerialAPI(object):
                 pass
             else:
                 cmd = self.uart.readline()
+                print(cmd)
                 self.exec_cmd(cmd)
 
     def exec_cmd(self, incoming):

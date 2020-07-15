@@ -125,7 +125,7 @@ def punto_en_recta(x, x1, y1, x2, y2):
 def correct_temperature(relacion, temp_b, offset):
     #TODO agrega uso de RF G8
     tabla_correla = [12, 13, 14, 14, 12, 9, 5, 2, 53, 52, 49, 43, 35, 25, 13, 8] #Empiricos copiados del excel
-    tabla_corregida = [v+v*0.006*(360-offset) for v in tabla_correla] #correccion de offsetde la tabla
+    tabla_corregida = [v+v*0.006*(360-offset) if i < 8 else v+v*0.005*(360-offset) for i, v in enumerate(tabla_correla)] #correccion de offsetde la tabla
     indice = 7+int(relacion/128) if temp_b < 22 else 0 + int(relacion/128)
 
     return relacion+tabla_corregida[indice+1]*(temp_b-22)/64
@@ -145,19 +145,19 @@ def medicion_grano(
         m_curve,
         auxi
     ):
-    print(p_peso, p_relacion, offset)
+    # print(p_peso, p_relacion, offset)
     value = correct_temperature(p_relacion, temp_b, offset)
-    print("Relacion corregida por temperatura: {0:.2f}".format(value))
+    # print("Relacion corregida por temperatura: {0:.2f}".format(value))
     x = range(0, 1025, 64)
     # y = [0,	29,	60,	98,	147, 178, 164, 127, 115, 97, 57, 27, 7, -2,	-4,	-2,	0]
-    print(kalvaso)
+    # print(kalvaso)
     correcion = spline_curve_point(value, x, kalvaso, 64, 0.5)
-    print("Correccion por patron: {0:.2f}".format(correcion))
+    # print("Correccion por patron: {0:.2f}".format(correcion))
     relacorr = value + correcion
-    print("Relacion corregida por patron: {0:.2f}".format(relacorr))
+    # print("Relacion corregida por patron: {0:.2f}".format(relacorr))
     relacion = (1024-relacorr-m_y0*2)*4*(m_slope/auxi)/p_peso
-    print("Relacion corregida por peso hectrolitrico: {0:.2f}".format(relacion))
-    x = range(0, 993, 32)
+    # print("Relacion corregida por peso hectrolitrico: {0:.2f}".format(relacion))
+    x = range(32, 1024, 32)
     # y =[0, 0, 26, 16, 16,16,16,15,16,16,16,16,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,255,0,0]
     # print(m_curve)
     h_acum = []
@@ -167,15 +167,15 @@ def medicion_grano(
         else:
             h_acum.append(h + h_acum[len(h_acum)-1])
 
-    print(h_acum)
+    # print(h_acum)
     humedad = spline_curve_point(relacion, x, h_acum, 200, 0.5)
 
-    print("Humedad desde tabla material: {0:.1f}".format(humedad))
+    # print("Humedad desde tabla material: {0:.1f}".format(humedad))
 
     h_final = humedad-(m_t_coef-80)/64*(temp_v-22)
-    print("Humedad corregida por temperatura: {0:.2f}".format(h_final))
-    print("Humedad: {0:.1f}".format(h_final/10))
-    print("Peso Hectolitrico: {0:.2f}".format(p_peso*m_c_coef*auxi/640))
+    # print("Humedad corregida por temperatura: {0:.2f}".format(h_final))
+    # print("Humedad: {0:.1f}".format(h_final/10))
+    # print("Peso Hectolitrico: {0:.2f}".format(p_peso*m_c_coef*auxi/640))
     return round(h_final/10, 1), p_peso*m_c_coef*auxi/640
 
 

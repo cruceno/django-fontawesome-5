@@ -43,5 +43,6 @@ def update_config(old, new):
         else:
             return {"result": 404, "msg": "Keyword {} not found".format(key)}
     old.update(config)
+
     return {"result": 200, "msg": "Configuracion actualizada"}
 

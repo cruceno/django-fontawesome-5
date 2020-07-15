@@ -1,4 +1,2 @@
-import esp, esp32
+import esp
 esp.osdebug(None)
-
-esp32.wake_on_touch(True)
