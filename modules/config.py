@@ -1,24 +1,30 @@
 import ujson
-
+import uio
 
 def load_config():
     try:
-        with open("config.json", 'r') as f:
+        with uio.open("config.json", 'r') as f:
             configuration = ujson.load(f)
+            f.close()
             return configuration
-
     except Exception as e:
         print(str(e))
 
 
 def save_config(config):
-    with open("config.json", 'w') as f:
-        ujson.dump(config, f)
+    try:
+        with uio.open("config.json", 'w') as f:
+            ujson.dump(config, f)
+            f.close()
+        return True
+
+    except:
+        return False
 
 
 def load_defaults():
     try:
-        with open("default.json", 'rt') as f:
+        with uio.open("default.json", 'rt') as f:
             configuration = ujson.load(f)
             save_config(configuration)
             return configuration

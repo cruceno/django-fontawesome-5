@@ -1,5 +1,6 @@
 import ujson
 import uos
+from uarray import  array
 MATERIAL_PATH = "data/materials"
 
 
@@ -26,11 +27,12 @@ def material_from_code(code):
                 data = ujson.load(f)
                 obj.code = data["code"]
                 obj.name = data["name"]
-                obj.hum_rf = data["hum_rf"]
+                obj.hum_rf = array('i', data["hum_rf"])
                 obj.c_coef = data["c_coef"]
                 obj.t_coef = data["t_coef"]
                 obj.slope = data["slope"]
                 obj.y0 = data["y0"]
+                f.close()
                 return obj
     return None
 
@@ -48,11 +50,12 @@ def next_material(code):
                     data = ujson.load(f)
                     obj.code = data["code"]
                     obj.name = data["name"]
-                    obj.hum_rf = data["hum_rf"]
+                    obj.hum_rf = array('i', data["hum_rf"])
                     obj.c_coef = data["c_coef"]
                     obj.t_coef = data["t_coef"]
                     obj.slope = data["slope"]
                     obj.y0 = data["y0"]
+                    f.close()
                     return obj
             except StopIteration:
                 return None
