@@ -1,6 +1,7 @@
 import ujson
-import uos
-from uarray import  array
+import uos, uio
+from uarray import array
+
 MATERIAL_PATH = "data/materials"
 
 
@@ -18,66 +19,54 @@ class Material(object):
 def get_iterator():
     return uos.ilistdir(MATERIAL_PATH)
 
-def material_from_code(code):
-    obj = Material()
+
+def make_material_index():
     materials = get_iterator()
-    for material in materials:
-        if code == material[0].split('.')[0]:
+    with uio.open('data/mat_index.dat', 'w') as ifile:
+        for material in materials:
             with open('/'.join([MATERIAL_PATH, material[0]]), 'r') as f:
                 data = ujson.load(f)
-                obj.code = data["code"]
-                obj.name = data["name"]
-                obj.hum_rf = array('i', data["hum_rf"])
-                obj.c_coef = data["c_coef"]
-                obj.t_coef = data["t_coef"]
-                obj.slope = data["slope"]
-                obj.y0 = data["y0"]
-                f.close()
-                return obj
-    return None
+                ifile.write("{}\t{}\n".format(data["code"], data["name"]))
+    return True
 
 
-def next_material(code):
+def get_mat_index():
+    with uio.open('data/mat_index.dat', 'r') as f:
+        index = f.read()
+    return index
 
+
+def material_from_code(code):
     obj = Material()
-    materials = get_iterator()
-    material = materials.__next__()
-    while material:
-        if code == material[0].split('.')[0]:
-            try:
-                material = materials.__next__()
-                with open('/'.join([MATERIAL_PATH, material[0]]), 'r') as f:
-                    data = ujson.load(f)
-                    obj.code = data["code"]
-                    obj.name = data["name"]
-                    obj.hum_rf = array('i', data["hum_rf"])
-                    obj.c_coef = data["c_coef"]
-                    obj.t_coef = data["t_coef"]
-                    obj.slope = data["slope"]
-                    obj.y0 = data["y0"]
-                    f.close()
-                    return obj
-            except StopIteration:
-                return None
-        material = materials.__next__()
-    return False
+    try:
+        with open('/'.join([MATERIAL_PATH, "{}.json".format(code)]), 'r') as f:
+            data = ujson.load(f)
+            obj.code = data["code"]
+            obj.name = data["name"]
+            obj.hum_rf = array('i', data["hum_rf"])
+            obj.c_coef = data["c_coef"]
+            obj.t_coef = data["t_coef"]
+            obj.slope = data["slope"]
+            obj.y0 = data["y0"]
+            f.close()
+            return obj
+    except:
+        return None
 
 
 def remove_material(code):
-    materials = get_iterator()
-    for material in materials:
-        if code == material[0].split('.')[0]:
-            uos.remove('/'.join([MATERIAL_PATH, material[0]]))
-            return True
-    return False
+    try:
+        uos.remove('/'.join([MATERIAL_PATH, "{}.json".format(code)]))
+        return True
+    except:
+        return False
 
 
 def add_material(material_dict):
     try:
-        with open('/'.join([MATERIAL_PATH, material_dict['code']+'.json']), 'w') as f:
+        with uio.open('/'.join([MATERIAL_PATH, material_dict['code']+'.json']), 'w') as f:
             ujson.dump(material_dict, f)
             return True
-
-    except OSError:
+    except:
         return True
 

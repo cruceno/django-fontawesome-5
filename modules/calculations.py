@@ -1,6 +1,6 @@
-import array
+from uarray import array
 
-def spline(t, t0, t1, t2, t3, p0, p1, p2, p3):
+def _spline(t, t0, t1, t2, t3, p0, p1, p2, p3):
     """
     https://en.wikipedia.org/wiki/Centripetal_Catmull%E2%80%93Rom_spline
     """
@@ -26,45 +26,45 @@ def spline(t, t0, t1, t2, t3, p0, p1, p2, p3):
     return _c_x, _c_y
 
 
-def do_spline(target, n_step, step,  p, k, t0, t1, t2, t3, xmax, xmin, ymin, ymax, section, i):
-    _xmin = xmin
-    _ymin = ymin
-    _xmax = xmax
-    _ymax = ymax
+def _do_spline(target, n_step, step,  p, k, t0, t1, t2, t3, xmax, xmin, ymin, ymax, section, i):
+    xmin = xmin
+    ymin = ymin
+    xmax = xmax
+    ymax = ymax
 
     for j in range(n_step):
         if section == 0:
-            cx, cy = spline(t1+j*step, t0, t1, t2, t3, (p[0], k[0]), (p[0], k[0]), (p[1], k[1]), (p[2], k[2]))
+            cx, cy = _spline(t1+j*step, t0, t1, t2, t3, (p[0], k[0]), (p[0], k[0]), (p[1], k[1]), (p[2], k[2]))
         if section == 1:
-            cx, cy = spline(t1+j*step, t0, t1, t2, t3, (p[i], k[i]), (p[i+1], k[i+1]), (p[i+2], k[i+2]), (p[i+3], k[i+3]))
+            cx, cy = _spline(t1+j*step, t0, t1, t2, t3, (p[i], k[i]), (p[i+1], k[i+1]), (p[i+2], k[i+2]), (p[i+3], k[i+3]))
         if section == -1:
-            cx, cy = spline(t1+j*step, t0, t1, t2, t3, (p[-3], k[-3]), (p[-2], k[-2]), (p[-1], k[-1]), (p[-1], k[-1]))
+            cx, cy = _spline(t1+j*step, t0, t1, t2, t3, (p[-3], k[-3]), (p[-2], k[-2]), (p[-1], k[-1]), (p[-1], k[-1]))
 
         # print(target, xmin, cx, xmax)
         if xmin < cx < target:
-            _xmin = cx
-            _ymin = cy
+            xmin = cx
+            ymin = cy
 
         if target < cx < xmax:
-            _xmax = cx
-            _ymax = cy
+            xmax = cx
+            ymax = cy
 
         if cx > target and cx > xmax:
-            result = punto_en_recta(target, # x
-                                    _xmin,  # x1
-                                    _ymin,  # y1
-                                    _xmax,  # x2
-                                    _ymax   # y2
+            result = _punto_en_recta(target, # x
+                                    xmin,  # x1
+                                    ymin,  # y1
+                                    xmax,  # x2
+                                    ymax   # y2
                                     )
             return result
 
     # print(xmin, target, xmax)
     if section == -1:
-        result = punto_en_recta(target, # x
-                                _xmin,  # x1
-                                _ymin,  # y1
-                                _xmax,  # x2
-                                _ymax   # y2
+        result = _punto_en_recta(target, # x
+                                xmin,  # x1
+                                ymin,  # y1
+                                xmax,  # x2
+                                ymax   # y2
                                 )
         return result
 
@@ -91,7 +91,7 @@ def spline_curve_point(target, p, k, n_step=64, alpha=0.5):
     t3 = ((p[2]-p[1])**2 + (k[1]-k[1])**2)**alpha + t2
     _step = (t2-t1) / n_step
 
-    _sp = do_spline(target, n_step, _step,  p, k, t0, t1, t2, t3, _xmax, _xmin, _ymin, _ymax, 0, None)
+    _sp = _do_spline(target, n_step, _step,  p, k, t0, t1, t2, t3, _xmax, _xmin, _ymin, _ymax, 0, None)
     if _sp is not None:
         return _sp
 
@@ -103,7 +103,7 @@ def spline_curve_point(target, p, k, n_step=64, alpha=0.5):
         t3 = ((p[i+3]-p[i+2])**2 + (k[i+3]-k[i+2])**2)**alpha + t2
         _step = (t2-t1) / n_step
 
-        _sp = do_spline(target, n_step, _step,  p, k, t0, t1, t2, t3, _xmax, _xmin, _ymin, _ymax, 1, i)
+        _sp = _do_spline(target, n_step, _step,  p, k, t0, t1, t2, t3, _xmax, _xmin, _ymin, _ymax, 1, i)
         if _sp is not None:
             return _sp
 
@@ -114,14 +114,15 @@ def spline_curve_point(target, p, k, n_step=64, alpha=0.5):
     t3 = 0.1**alpha + t2 # for numerical stability (divide-by-zero)
     _step = (t2-t1) / n_step
 
-    _sp = do_spline(target, n_step, _step,  p, k, t0, t1, t2, t3, _xmax, _xmin, _ymin, _ymax, -1, None)
+    _sp = _do_spline(target, n_step, _step,  p, k, t0, t1, t2, t3, _xmax, _xmin, _ymin, _ymax, -1, None)
     if _sp is not None:
         return _sp
 
-def punto_en_recta(x, x1, y1, x2, y2):
+
+def _punto_en_recta(x, x1, y1, x2, y2):
     # (x-x1)/(x2-x1) = (y-y1)/(y2-y1)
     # y = mx+n
-    # print(x, x1, y1, x2, y2)
+    print(x, x1, y1, x2, y2)
     _m = (y2-y1) / (x2-x1)
     # print (m)
     _y = _m*(x-x1) + y1
