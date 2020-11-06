@@ -873,7 +873,7 @@ def measure_load_cell(params):
         value = read[0]*delver.load_cell.get_factor()
         std_dev = read[1]*delver.load_cell.get_factor()
 
-    return {"result": 200, "value": value, "std_dev": std_dev}
+    return {"result": 200, "value": value, "std_dev": std_dev, "tara": delver.load_cell.get_offset()}
 
 def measure_thermal(params):
     # print(params)
