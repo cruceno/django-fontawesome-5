@@ -73,6 +73,14 @@ class DelverDisplay (I2cLcd):
                 else:
                     raise LookupError('align must be "left", "center", or "right". Not: {}'.format(align))
 
+    def presentation(self):
+        line1 = self.align_and_crop_line("HIGROMETRO", "center")
+        line2 = self.align_and_crop_line("DELVER HD1021", "center")
+        self.move_to(0, 0)
+        self.putstr(line1)
+        # self.move_to(0, 1)
+        self.putstr(line2)
+
     def home(self,  material):
         line1 = self.align_and_crop_line("ANALIZAR HUMEDAD", "center")
         line2 = self.align_and_crop_line(material, "center")

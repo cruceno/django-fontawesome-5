@@ -7,14 +7,12 @@ import _thread
 from button import Button, no_action
 from math import log
 from statistics import mean, stdev
-
 from serialapi import SerialAPI
 from scales import Scales
 from config import load_config, update_config, save_config
 from materials import material_from_code, add_material, remove_material, make_material_index, get_mat_index
-from screens import DelverDisplay, _MENU_CONFIGURACION, _MENU_PRINCIPAL
+# from screens import DelverDisplay, _MENU_CONFIGURACION, _MENU_PRINCIPAL
 from delver import DelverBuzz
-import uio
 import gc
 from calculations import correct_temperature, spline_curve_point
 
@@ -27,7 +25,7 @@ uart = UART(2, 115200)
 i2c = I2C(scl=Pin(LCD_SCL), sda=Pin(LCD_SDA), freq=400000)
 scale = Scales(d_out=HX711_DT, pd_sck=HX711_SCK)
 api = SerialAPI(uart)
-lcd = DelverDisplay()
+
 
 # def go_to_sleep():
     #TODO: Cambiar logica en placa a bateria. Mandar un 1 para apagar biestable.

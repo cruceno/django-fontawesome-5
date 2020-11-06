@@ -1,3 +1,7 @@
+from screens import DelverDisplay, _MENU_CONFIGURACION, _MENU_PRINCIPAL
+lcd = DelverDisplay()
+lcd.presentation()
+
 import machine
 machine.freq(240000000)
 import esp
