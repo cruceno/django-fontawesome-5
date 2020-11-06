@@ -9,9 +9,9 @@ VTERM = const(34)
 RFVAL = const(36)
 
 # Buttons
-BTN1 = const(4)
+BTN1 = const(12)
 BTN2 = const(14)
-BTN3 = const(12)
+BTN3 = const(4)
 
 # Pines UART usado por RELP Micropython
 PROG_TX = const(1)
