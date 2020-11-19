@@ -8,7 +8,7 @@ from button import Button, no_action
 from math import log
 from statistics import mean, stdev
 from serialapi import SerialAPI
-from scales import Scales
+from scales import Scales, TareError
 from config import load_config, update_config, save_config
 from materials import material_from_code, add_material, remove_material, make_material_index, get_mat_index
 # from screens import DelverDisplay, _MENU_CONFIGURACION, _MENU_PRINCIPAL
@@ -27,7 +27,6 @@ scale = Scales(d_out=HX711_DT, pd_sck=HX711_SCK)
 api = SerialAPI(uart)
 
 
-# def go_to_sleep():
     #TODO: Cambiar logica en placa a bateria. Mandar un 1 para apagar biestable.
 
     # rf_mosfet.off()
@@ -115,9 +114,9 @@ class Delver:
         self.home()
 
     def go_to_sleep(self):
-        #TODO: USar esta funcion en lugar de la definida arriba ?
+        #TODO: USar esta funcion en lugar de la definida arriba
         self.lcd_on_off()
-        save_config(self.config)
+        # save_config(self.config)
         # self.btn3.pin.init(Pin.IN, Pin.PULL_DOWN)
         deepsleep()
 
@@ -158,6 +157,7 @@ class Delver:
         return int(prom), int(deviation), prom_v, deviation_v
 
     def lcd_on_off(self):
+        #TODO: Solo util en prototipos remover para la version final
         if self.LCD_STATE:
             self.buzzer.fail()
             self.lcd.backlight_off()
@@ -346,6 +346,7 @@ class Delver:
         self.btn1.set_action(self.toggle_func)
 
         self.btn3.set_action(self.stop_debug)
+
         self.btn2.set_action(self.load_cell.tare, (self.config["load_cell"]["samples"],
                                                  self.config["load_cell"]["delay"])
                              )
@@ -353,9 +354,24 @@ class Delver:
         self._busy = True
 
     def shut_down(self):
-        save_config(self.config)
-        self.btn3.pin.init(Pin.IN, Pin.PULL_DOWN)
-        self.go_to_sleep()
+        self.btn2.clear_action()
+
+        t = time.time()
+        v = 0
+        while self.btn2.pin.value() == 1:
+            v = time.time()-t
+            if v <= 3:
+                self.lcd.shut_down_in(v)
+            else:
+                break
+
+        if v >= 3:
+            save_config(self.config)
+            self.btn3.pin.init(Pin.IN, Pin.PULL_DOWN)
+            self.go_to_sleep()
+
+        else:
+            self.home()
 
     def home(self):
         self.stop = True
@@ -372,7 +388,7 @@ class Delver:
         material = index.splitlines()[int(self.config["system"]["last_used_material"])].split('\t')[1]
 
         self.btn1.set_action(self.menu, (0,))
-        self.btn2.set_action(self.go_to_sleep, params=None)
+        self.btn2.set_action(self.shut_down, params=None)
         self.btn3.set_action(self.step_1, params=None)
 
         self.set_off_osc()
@@ -381,12 +397,20 @@ class Delver:
             # Se utiliza rl try para evitar error de profundidad de recursion al
             # volver de otra pantalla
             self.lcd.home(material)
+
         except:
             self.lcd.home(material)
 
         self.last_action = time.time()
 
-    def menu(self, index=0):
+    def menu(self, index=0, stop_thread=False):
+        if stop_thread:
+            self.stop = True
+            self._busy = False
+            if self._thread is not None:
+                while self._thread.isRunning():
+                    time.sleep_ms(10)
+            time.sleep_ms(300)
         self._menu_index = index
         self.lcd.menu(_MENU_PRINCIPAL, self._menu_index)
         self.buzzer.beep()
@@ -401,12 +425,20 @@ class Delver:
         self.btn3.set_action(self._menu_actions[index])
         self.last_action = time.time()
 
-    def config_menu(self, index=0):
+    def config_menu(self, index=0, stop_thread=False):
+        if stop_thread:
+            self.stop = True
+            self._busy = False
+            if self._thread is not None:
+                while self._thread.isRunning():
+                    time.sleep_ms(10)
+            time.sleep_ms(300)
+
         self._menu_index = index
         if index < len(_MENU_CONFIGURACION)-2:
             # print(index, len(_MENU_CONFIGURACION))
             self.btn1.set_action(self.config_menu, (index+1,))
-            self.lcd.menu(_MENU_CONFIGURACION, self._menu_index)
+            self.lcd.menu(_MENU_CONFIGURACION, self._menu_index, self.config["system"]["cic"])
 
         elif index <= len(_MENU_CONFIGURACION)-1:
             if index < len(_MENU_CONFIGURACION)-1:
@@ -420,7 +452,7 @@ class Delver:
             # print("else", index, len(_MENU_CONFIGURACION))
             self.btn1.set_action(self.config_menu, (0,))
 
-        self.btn2.set_action(self.menu, (0,))
+        self.btn2.set_action(self.menu, (1,))
         self.buzzer.beep()
         self.btn3.set_action(self._config_actions[index])
         self.last_action = time.time()
@@ -428,7 +460,7 @@ class Delver:
     def pesar_muestra(self):
         self.lcd.step_1()
         self.buzzer.beep()
-        self.btn2.set_action(self.menu)
+        self.btn2.set_action(self.menu, (2, True))
         self.btn1.clear_action()
         self.btn3.set_action(self.pesar_muestra_tara)
         self.last_action = time.time()
@@ -437,7 +469,7 @@ class Delver:
         self.lcd.process_1()
         self.load_cell.tare(self.config["load_cell"]["samples"], self.config["load_cell"]["delay"])
         self.buzzer.beep()
-        self.btn2.set_action(self.home)
+        # self.btn3.set_action(self.menu(2,))
         self.lcd.pesar_muestra_1()
         self.stop = False
         self.btn1.clear_action()
@@ -446,8 +478,8 @@ class Delver:
 
     def show_bat_status(self):
         self.btn1.clear_action()
-        self.btn2.clear_action()
-        self.btn3.set_action(self.home)
+        self.btn2.set_action(self.config_menu, (0,))
+        self.btn3.set_action(self.config_menu, (0,))
         bat = self.read_adc(self.midbat)[2]
         min = self.config["system"]["min_battery_value"]
         max = self.config["system"]["max_battery_value"]
@@ -471,15 +503,14 @@ class Delver:
 
         if value == 99:
             save_config(self.config)
-            self.home()
+            self.config_menu(4)
 
         elif value == 0:
             self.btn1.set_action(self.set_backlight_time, (-10,))
-            self.btn2.set_action(self.set_backlight_time, (10,))
-            self.btn3.set_action(self.set_backlight_time, (99,))
+            self.btn2.set_action(self.set_backlight_time, (99,))
+            self.btn3.set_action(self.set_backlight_time, (10,))
             self.lcd.backlight_time(self.config["system"]["backlight_off"])
             self.buzzer.beep()
-
         else:
             if 0 < self.config["system"]["backlight_off"] < 100:
                 self.config["system"]["backlight_off"] += value
@@ -497,8 +528,8 @@ class Delver:
         self.buzzer.beep()
         # self.lcd.contrast_index = self.lcd.contrast_index+increment
         self.btn1.set_action(self.increment_contrast, (-1,))
-        self.btn2.set_action(self.increment_contrast, (1,))
-        self.btn3.set_action(self.menu)
+        self.btn3.set_action(self.increment_contrast, (1,))
+        self.btn2.set_action(self.config_menu, (5,))
         self.last_action = time.time()
 
     def increment_contrast(self, increment):
@@ -529,7 +560,9 @@ class Delver:
 
         self.last_action = time.time()
 
-
+# =====================================================
+#               PROCESOS DE MEDICION
+# =====================================================
     def select_favourite_material(self):
         self.buzzer.beep()
         self.btn1.set_action(self.select_favourite_material)
@@ -589,7 +622,7 @@ class Delver:
     def process_1(self):
         self._busy=True
         self.buzzer.beep()
-        self.btn1.clear_action()
+        self.btn2.clear_action()
         self.btn3.clear_action()
         self.lcd.process_1()
         self.value = 0
@@ -597,45 +630,47 @@ class Delver:
         while self.value == 0:
             self.value = self.get_relation()
             time.sleep_ms(100)
-
-        self.buzzer.beep()
-        self.btn1.set_action(self.home)
-        self.btn3.set_action(self.process_2)
         material = index.splitlines()[int(self.current_material)].split('\t')[1]
 
-        self.lcd.step_2(material)
-        self.stop = False
+        self.step_2(material)
         # self._thread = _thread.start_new_thread(self.weigth_monitor_thread, (0,))
+
+    def step_2(self, material):
+        self.buzzer.beep()
+        self.btn2.set_action(self.step_1)
+        self.btn3.set_action(self.process_2)
+        self.lcd.step_2(material)
+        self.last_action = time.time()
 
     def weigth_monitor_thread(self, mode=0):
         self._busy = True
         while not self.stop:
-            p = self.load_cell.get_value()
+            p = self.load_cell.get_value(error_control=False)
             p_neto = int((p[0] * self.load_cell.get_factor()))
-
             self.lcd.pesar_muestra_result(p_neto)
-
             if mode == 0:
                 self.lcd.move_to(13, 1)
                 self.lcd.putstr("{}".format("OK") if p_neto > self.config["load_cell"]["min_load_to_work"] else "   ")
-
             if p_neto > 0:
                 if mode == 0:
                     self.btn3.set_action(self.process_2)
                 else:
-                    self.btn3.set_action(self.home)
+                    self.btn3.set_action(self.menu, (2, True))
             else:
                 if mode == 0:
                     self.btn3.clear_action()
                 else:
-                    self.btn3.set_action(self.home)
-            time.sleep_ms(300)
+                    self.btn3.set_action(self.menu, (2, True))
+            time.sleep_ms(100)
+        self._busy = False
 
     def process_2(self, step=0, medicion=None):
         self.buzzer.beep()
+        material = material_from_code(self.current_material)
         if step == 0:
             # update_config(self.config, {"last_used_material": self.current_material,
             #                             "cic": self.config["system"]["cic"] + 1})
+            # material = material_from_code(self.current_material)
             self.stop = True
             if self._thread is not None:
                 while self._thread.isRunning():
@@ -643,7 +678,7 @@ class Delver:
 
             self.btn1.clear_action()
             self.btn2.set_action(self.home)
-            self.btn3.set_action(self.home)
+            self.btn3.clear_action()
             #TODO: pasar mensaje a archivo de pantallas
             line1 = self.lcd.align_and_crop_line("PROCESANDO", "center")
             line2 = self.lcd.align_and_crop_line(" "*16, "left")
@@ -652,8 +687,17 @@ class Delver:
             self.lcd.move_to(0, 1)
             self.lcd.putstr(line2)
             self.lcd.progress_bar(1)
-            p_peso = int((self.load_cell.get_value(self.config["load_cell"]["samples"],
+            try:
+                p_peso = int((self.load_cell.get_value(self.config["load_cell"]["samples"],
                                                    self.config["load_cell"]["delay"],)[0]) * self.load_cell.get_factor())
+            except TareError:
+                self.buzzer.fail()
+                self.lcd.tare_error()
+                time.sleep(3)
+                self.step_1()
+                return
+
+            print("Pesado completo")
             self.lcd.progress_bar(2)
             if p_peso >= self.config["load_cell"]["min_load_to_work"]:
                 self.lcd.progress_bar(3)
@@ -666,7 +710,7 @@ class Delver:
                 offset = self.get_osc_offset()[0]
                 self.lcd.progress_bar(7)
                 auxi = self.config["rf"]["vaso_auxi"]
-                material = material_from_code(self.current_material)
+
                 self.lcd.progress_bar(8)
 
                 results = self.medicion_grano(p_peso,
@@ -686,28 +730,35 @@ class Delver:
                 self.lcd.progress_bar(15)
                 print(material.name, results[0])
                 self.config["system"]["last_used_material"] = self.current_material
+                self.process_2(1, results)
 
-                self.lcd.show_results_1(material.name, results[0])
-                self.btn3.set_action(self.process_2, (1, results))
-            # self.lcd.putstr("Humedad :{0:.1f}% \nPH:{1:.2f}".format(medicion[0], medicion[1]))
-            # self.lcd.move_to(13, 1)
-            # self.lcd.putstr('OK')
-            # print(gc.mem_free())
+                # self.lcd.show_results_1(material.name, results[0])
+                # self.btn3.set_action(self.process_2, (1, results))
+                # self.lcd.putstr("Humedad :{0:.1f}% \nPH:{1:.2f}".format(medicion[0], medicion[1]))
+                # self.lcd.move_to(13, 1)
+                # self.lcd.putstr('OK')
+                # print(gc.mem_free())
                 return
 
             else:
                 self.buzzer.fail()
-                self.step_2()
+                self.lcd.add_material(material.name)
+                time.sleep(3)
+                self.step_2(material.name)
                 return
 
         elif step == 1:
-            print(medicion)
-            self.lcd.show_results_2(medicion[3], medicion[2])
+            self.lcd.show_results_1(material.name, medicion[0])
             self.btn3.set_action(self.process_2, (2, medicion))
 
         elif step == 2:
+            print(medicion)
+            self.lcd.show_results_2(medicion[3], medicion[2])
+            self.btn3.set_action(self.process_2, (3, medicion))
+
+        elif step == 3:
             self.lcd.show_results_3(medicion[1])
-            self.btn3.set_action(self.home)
+            self.btn3.set_action(self.process_2, (1, medicion))
 
     def medicion_grano(self, p_peso, p_relacion, temp_v, temp_b, offset, m_t_coef, m_slope, m_y0, m_c_coef,
                        kalvaso, m_curve, auxi):
@@ -980,10 +1031,13 @@ api.add_command('materials/delete', api_material_delete)
 def run_in_trhead():
 
     while True:
-        if (    delver.config["system"]["backlight_off"]> 0 and
-                time.time() - delver.last_action > delver.config["system"]["backlight_off"]) \
-                and (delver.is_busy() is False):
+        if (100 > delver.config["system"]["backlight_off"] > 0 and
+            time.time() - delver.last_action > delver.config["system"]["backlight_off"]) \
+            and (delver.is_busy() is False):
 
+            delver.lcd.backlight_off()
+
+        elif delver.config["system"]["backlight_off"] <= 0:
             delver.lcd.backlight_off()
 
         else:
