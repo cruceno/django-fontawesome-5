@@ -67,7 +67,7 @@ class DelverDisplay (I2cLcd):
                 if align == "center":
                     return ' '*int(floor(margin))+line+' '*(16-len(line)-int(floor(margin)))
                 elif align == "left":
-                    return line+' '*int(floor(margin)*2)
+                    return line+' '*(16-len(line))
                 elif align == "right":
                     return ' '*int(floor(margin)*2)+line
                 else:
@@ -96,7 +96,7 @@ class DelverDisplay (I2cLcd):
         else:
             line1 = self.align_and_crop_line(menu[menu_item], "left")
         if menu_item < len(menu)-1:
-            if menu_item > len(menu)-2 and cic is not None:
+            if menu_item == len(menu)-2 and cic is not None:
                 cic_str = "{}: {}".format(menu[menu_item+1], cic)
                 line2 = self.align_and_crop_line(cic_str, "left")
             else:
@@ -114,6 +114,14 @@ class DelverDisplay (I2cLcd):
     def show_bat(self, value):
         line1 = self.align_and_crop_line("BATERIA", "center")
         line2 = self.align_and_crop_line("{}%".format(value), "center")
+        self.move_to(0, 0)
+        self.putstr(line1)
+        self.move_to(0, 1)
+        self.putstr(line2)
+
+    def shut_down_in(self, value):
+        line1 = self.align_and_crop_line("APAGADO EN", "center")
+        line2 = self.align_and_crop_line("{} Seg.".format(value), "center")
         self.move_to(0, 0)
         self.putstr(line1)
         self.move_to(0, 1)
@@ -150,6 +158,22 @@ class DelverDisplay (I2cLcd):
     def step_2(self, material):
         line1 = self.align_and_crop_line(material, "center")
         line2 = self.align_and_crop_line("VUELQUE Y ENRASE", "center")
+        self.move_to(0, 0)
+        self.putstr(line1)
+        self.move_to(0, 1)
+        self.putstr(line2)
+
+    def tare_error(self):
+        line1 = self.align_and_crop_line("ERROR", "center")
+        line2 = self.align_and_crop_line("TARA INCORRECTA", "center")
+        self.move_to(0, 0)
+        self.putstr(line1)
+        self.move_to(0, 1)
+        self.putstr(line2)
+
+    def add_material(self, material):
+        line1 = self.align_and_crop_line(material, "center")
+        line2 = self.align_and_crop_line("FALTA GRANO", "center")
         self.move_to(0, 0)
         self.putstr(line1)
         self.move_to(0, 1)
@@ -226,7 +250,14 @@ class DelverDisplay (I2cLcd):
 
     def backlight_time(self, value):
         line1 = self.align_and_crop_line("LUZ DE FONDO", "center")
-        line2 = self.align_and_crop_line("{} Seg.".format(value), "center" )
+        if 0 < value < 100:
+            line2 = self.align_and_crop_line("{} Seg.".format(value), "center" )
+        elif 0 >= value:
+            line2 = self.align_and_crop_line("APAGADO".format(value), "center" )
+        elif value >= 100:
+            line2 = self.align_and_crop_line("SIEMPRE", "center" )
+
+
         self.move_to(0, 0)
         self.putstr(line1)
         self.move_to(0, 1)
