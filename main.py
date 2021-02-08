@@ -895,6 +895,9 @@ def measure_thermal(params):
     else:
         return {"result": 400, "msg": "El kewyword sensor no se encontro en los parametros recibidos"}
 
+def measure_battery(params):
+    pass
+
 #Material system
 
 def api_favourite_materials(method, params):
@@ -916,6 +919,7 @@ def api_material_add(params):
     except Exception as e:
         return{"result": 400, "msg": "No se pudo agregar el material. Error:{}".format(str(e))}
 
+
 def api_material_get_material(params):
     try:
         material = material_from_code(params['code'])
@@ -926,6 +930,7 @@ def api_material_get_material(params):
     except Exception as e:
         return{"result": 400, "msg": "No se pudo recuperar el material. Error:{}".format(str(e))}
 
+
 def api_material_delete(params):
     try:
         remove_material(params['code'])
@@ -934,20 +939,22 @@ def api_material_delete(params):
     except Exception as e:
         return{"result": 400, "msg": "No se pudo borrar el material. Error:{}".format(str(e))}
 
+
 def api_battery_check(params=None):
     min = delver.config["system"]["min_battery_value"]
     max = delver.config["system"]["max_battery_value"]
+
     bat = delver.read_adc(delver.midbat)[2]*delver.config['adc_calibration']['resistor_divisor']
     if bat < min:
         # Battery is low pleas replace
-        return {"result": 200, "battery": 0.0}
+        return {"result": 200, "value": 0.0}
 
     elif min < bat < max:
         value = bat - min
         bat_percent = value * 100 / (max-min)
-        return {"result": 200, "battery": round(bat_percent, 1)}
+        return {"result": 200, "value": round(bat_percent, 1)}
     else:
-        return {"result": 200, "battery": 100.0}
+        return {"result": 200, "value": 100.0}
 
 # Config system
 api.add_command('config/get/load-cell', config_load_cell)
