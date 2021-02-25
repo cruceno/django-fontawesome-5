@@ -1,4 +1,7 @@
+from machine import Pin
 from screens import DelverDisplay, _MENU_CONFIGURACION, _MENU_PRINCIPAL
+
+on_5v = Pin(2, Pin.OUT, value=0)
 lcd = DelverDisplay()
 lcd.presentation()
 
