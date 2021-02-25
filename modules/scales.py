@@ -3,12 +3,18 @@ from utime import sleep_us
 from statistics import mean, stdev
 
 
+class TareError(Exception):
+    def __ini__(self):
+        self.message = "Error en la tara verificar vaso vacio"
+
+
 class Scales(HX711):
 
     def __init__(self, d_out, pd_sck, channel: int = HX711.CHANNEL_A_128):
         super(Scales, self).__init__(d_out, pd_sck, channel)
         self._offset = 0
         self._factor = 1
+        self.polarity = -1
         # self.power_off()
 
     def reset(self):
@@ -21,20 +27,33 @@ class Scales(HX711):
 
     def tare(self, samples, delay):
         self._offset = 0
-        self._offset = mean(self.get_samples(samples, delay))
+        self._offset = mean(self.get_samples(samples, delay, False))
 
     def raw_value(self):
-        return self.read() - self._offset
+        return self.read()*self.polarity - self._offset
 
-    def get_samples(self, n, delay):
+    def get_samples(self, n, delay, error_control=True):
         # self.power_on()
         samples = []
-        for i in range(n + 1):
+        i = 0
+        error = 0
+        while i <= n and error*100/n < 20:
             sample = self.raw_value()
-            samples.append(sample)
-            acum = (sample - samples[i-1])/n + samples[i-1]
-            samples[i] = acum
+            if sample >= 0:
+                samples.append(sample)
+                acum = (sample - samples[i-1])/n + samples[i-1]
+                samples[i] = acum
+                i += 1
+            else:
+                if error_control:
+                    print(error, error*100/n < 20)
+                    error += 1
+
             sleep_us(delay)
+
+        if error*100/n >= 20:
+            raise TareError
+
         # self.power_off()
         return samples
 
@@ -47,8 +66,8 @@ class Scales(HX711):
     def get_factor(self):
         return self._factor
 
-    def get_value(self, samples=10, delay=10):
-        data = self.get_samples(samples, delay)
+    def get_value(self, samples=10, delay=10, error_control=True):
+        data = self.get_samples(samples, delay, error_control)
         xbar = mean(data)
         return [xbar, stdev(data, xbar)]
 
