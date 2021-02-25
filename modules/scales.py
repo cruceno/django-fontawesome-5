@@ -14,6 +14,7 @@ class Scales(HX711):
         super(Scales, self).__init__(d_out, pd_sck, channel)
         self._offset = 0
         self._factor = 1
+        self.polarity = -1
         # self.power_off()
 
     def reset(self):
@@ -29,7 +30,7 @@ class Scales(HX711):
         self._offset = mean(self.get_samples(samples, delay, False))
 
     def raw_value(self):
-        return self.read() - self._offset
+        return self.read()*self.polarity - self._offset
 
     def get_samples(self, n, delay, error_control=True):
         # self.power_on()
