@@ -1,6 +1,6 @@
 from machine import I2C, Pin, PWM, DAC
 from esp8266_i2c_lcd import I2cLcd
-from pins import ON_LCD, LCD_SDA, LCD_SCL
+from pins import CONTRAST, LCD_SDA, LCD_SCL
 from math import floor
 
 #TODO: PERMITIR TRADUCCIION DE MENSAJES
@@ -19,12 +19,12 @@ class DelverDisplay (I2cLcd):
                  rows=2,
                  columns=16,
                  #TODO: Cambiar Nombre al pin para que refleje su funcion
-                 control_pin=ON_LCD,
+                 contrast_pin=CONTRAST,
                  contrast_value=60,
                  contrast_max =0
                  ):
 
-        self.contrast = DAC(Pin(control_pin, Pin.OUT))
+        self.contrast = DAC(Pin(contrast_pin, Pin.OUT))
         self.max_contrast = contrast_max
         self.min_contrast = self.max_contrast + 120
         self.contrast.write(self.max_contrast + contrast_value)
@@ -84,6 +84,16 @@ class DelverDisplay (I2cLcd):
     def home(self,  material):
         line1 = self.align_and_crop_line("ANALIZAR HUMEDAD", "center")
         line2 = self.align_and_crop_line(material, "center")
+        self.move_to(0, 0)
+        self.putstr(line1)
+        # self.move_to(0, 1)
+        self.putstr(line2)
+
+    def usb_mode(self):
+
+        line1 = self.align_and_crop_line("MODO USB", "center")
+        line2 = self.align_and_crop_line("HABILITADO", "center")
+
         self.move_to(0, 0)
         self.putstr(line1)
         # self.move_to(0, 1)
