@@ -1,5 +1,5 @@
 from pins import *
-from machine import I2C, Pin, UART, ADC, reset, deepsleep
+from machine import I2C, UART, ADC, reset, deepsleep
 import esp32
 import utime as time
 from uarray import array
@@ -19,28 +19,17 @@ from calculations import correct_temperature, spline_curve_point
 index = get_mat_index()
 
 #TODO: Para version de placa final. pasar el pin a 0 y usar para apagar el biestable mandando un 1
-rf_mosfet = Pin(ON_RF, Pin.OUT, value=1)
 
 uart = UART(2, 115200)
 i2c = I2C(scl=Pin(LCD_SCL), sda=Pin(LCD_SDA), freq=400000)
 scale = Scales(d_out=HX711_DT, pd_sck=HX711_SCK)
 api = SerialAPI(uart)
 
-
-    #TODO: Cambiar logica en placa a bateria. Mandar un 1 para apagar biestable.
-
-    # rf_mosfet.off()
-
-    #TODO: No hace falta en placa definitiva el display se apaga al apagarse la fuente
-
-    # lcd.backlight_off()
-    # lcd.display_off()
-    # deepsleep()
-
-
 class Delver:
     def __init__(self, lcd, scale, buzzer):
         self.config = load_config()
+        self.on_5v = Pin(ON_5V, Pin.OUT, value=0)
+
         self.kalvaso = self.config['rf']['calibration']
         self.lcd = lcd
         self.lcd.set_contrast(self.config['system']['display_contrast'])
@@ -48,7 +37,12 @@ class Delver:
 
         self.load_cell = scale
         self.load_cell.set_factor(self.config['load_cell']["calibration_factor"])
-        self.buzzer = DelverBuzz(buzzer)
+        if self.load_cell.read() < 0:
+            self.load_cell.polarity = -1
+        else:
+            self.load_cell.polarity = 1
+
+        self.buzzer = DelverBuzz(buzzer, 100)
 
         self.vterm = ADC(Pin(VTERM))  # OSC Pin 3
         self.vterm.atten(ADC.ATTN_11DB)
@@ -100,6 +94,7 @@ class Delver:
         self.value = 0
         self.func = 0
         self._busy = False
+        self._usb = False
         self._menu_index = 0
         self.stop = True
         self.LCD_STATE = True
@@ -114,21 +109,28 @@ class Delver:
         self.home()
 
     def go_to_sleep(self):
-        #TODO: USar esta funcion en lugar de la definida arriba
-        self.lcd_on_off()
-        # save_config(self.config)
-        # self.btn3.pin.init(Pin.IN, Pin.PULL_DOWN)
         deepsleep()
 
     def is_busy(self):
         return self._busy
+
+    def is_usb(self):
+        return self._usb
+
+    def go_to_usb_mode(self):
+        self.buzzer.beep()
+        self._usb = True
+        self.btn1.clear_action()
+        self.btn3.clear_action()
+        self.btn2.set_action(self.shut_down)
+        self.lcd.usb_mode()
 
     def reload_config(self):
         self.config = load_config()
         self.load_cell.set_factor(self.config['load_cell']["calibration_factor"])
         self.kalvaso = self.config['rf']['calibration']
 
-    def read_adc(self, adc, n=100, delay_us=10, raw=False):
+    def read_adc(self, adc, n=25, delay_us=40, raw=False):
         # rf_mosfet.on()
         values = []
         for i in range(0, n):
@@ -366,12 +368,23 @@ class Delver:
                 break
 
         if v >= 3:
+
             save_config(self.config)
-            self.btn3.pin.init(Pin.IN, Pin.PULL_DOWN)
-            self.go_to_sleep()
+            if self.config['system']['99v_battery']:
+                self.on_5v.value(1)
+                time.sleep_ms(3000)
+                self.go_to_sleep()
+
+            else:
+                self.on_5v.value(1)
+                time.sleep_ms(3000)
+                self.go_to_sleep()
 
         else:
-            self.home()
+            if self.is_usb():
+                self.go_to_usb_mode()
+            else:
+                self.home()
 
     def home(self):
         self.stop = True
@@ -484,6 +497,8 @@ class Delver:
         min = self.config["system"]["min_battery_value"]
         max = self.config["system"]["max_battery_value"]
         value = (bat-min)*100/(max-min)
+        if self.config['system']['9v_battery']:
+            value = value + 0.6
         self.lcd.show_bat(value)
         self.last_action = time.time()
 
@@ -998,6 +1013,10 @@ def api_battery_check(params=None):
     else:
         return {"result": 200, "battery": 100.0}
 
+def usb_mode(params=None):
+    delver._usb = True
+    return {"result": 200, "msg": "Modo usb acivado el equipo no pasara a suspension y solo podra ser operado desde la pc"}
+
 # Config system
 api.add_command('config/get/load-cell', config_load_cell)
 api.add_command('config/post/load-cell', config_load_cell)
@@ -1009,11 +1028,13 @@ api.add_command('config/get/rf', config_rf)
 api.add_command('config/post/rf', config_rf)
 api.add_command('config/get/system', config_system)
 api.add_command('config/post/system', config_system)
+
 # Control system
 api.add_command('control/get/rf', control_rf)
 api.add_command('control/post/rf', control_rf)
 api.add_command('control/tare',  control_tare)
 api.add_command('control/reset', control_reset)
+api.add_command('control/usbmode', usb_mode)
 
 # Measure system
 api.add_command('measure/load-cell', measure_load_cell)
@@ -1033,7 +1054,7 @@ def run_in_trhead():
     while True:
         if (100 > delver.config["system"]["backlight_off"] > 0 and
             time.time() - delver.last_action > delver.config["system"]["backlight_off"]) \
-            and (delver.is_busy() is False):
+                and (delver.is_busy() is False) and (delver.is_usb() is False):
 
             delver.lcd.backlight_off()
 
@@ -1043,7 +1064,8 @@ def run_in_trhead():
         else:
             delver.lcd.backlight_on()
 
-        if time.time() - delver.last_action > delver.config["system"]["time_to_off"] and delver.is_busy() is False:
+        if time.time() - delver.last_action > delver.config["system"]["time_to_off"] and delver.is_busy() is False\
+                and delver.is_usb() is False:
             save_config(delver.config)
             # delver.btn3.pin.init(Pin.IN, Pin.PULL_DOWN)
             # delver.btn3.pin.pull(Pin.PULL_DOWN)
