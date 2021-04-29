@@ -142,3 +142,10 @@ pip-selfcheck.json
 .idea
 data/materials
 *.json
+
+.vscode
+.pylintrc
+pymakr.conf
+.micropy
+requirements.txt
+dev-requirements.txt

@@ -8,7 +8,7 @@ from button import Button, no_action
 from math import log
 from statistics import mean, stdev
 from serialapi import SerialAPI
-from scales import Scales, TareError
+from scales import Scales
 from config import load_config, update_config, save_config
 from materials import material_from_code, add_material, remove_material, make_material_index, get_mat_index
 # from screens import DelverDisplay, _MENU_CONFIGURACION, _MENU_PRINCIPAL
